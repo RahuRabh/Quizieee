@@ -1,9 +1,14 @@
-
+import { BrowserRouter, Route, Routes} from "react-router-dom"
+import AuthPage from "./pages/AuthPage/AuthPage";
+import HomePage from "./pages/HomePage/HomePage";
 function App() {
   return (
-    <div className="App">
-    <h1>Hey Bitch !!!</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/auth" element={<AuthPage />} />
+        <Route path="/*" element={<HomePage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

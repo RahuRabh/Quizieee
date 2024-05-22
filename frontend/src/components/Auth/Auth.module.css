@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Jomhuria&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+.mainContainer {
+  width: 100%;
+  height: 100%;
+  background-color: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* overflow: hidden; */
+  position: relative;
+}
+.authContainer {
+  /* width: 80%; */
+  /* max-width: 1066px; */
+  width: 1066px;
+  height: 610px;
+  /* height: 70%;
+  max-height: 611px; */
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.18);
+  /* margin-top: 30px; */
+  /* margin-bottom: 30px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem; /* Add some padding for inner spacing */
+  /* position: relative; */
+}
+.title {
+  font-family: "Jomhuria", cursive;
+  color: #474444;
+  font-size: 6rem; 
+  line-height: 6rem;
+  margin-bottom: 1rem;
+}
+.authButton{
+    display: flex;
+    flex-direction: row;
+}
+.authButton button{
+    width: 13rem;
+    height: 3rem;
+    color: black;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    margin-left: 2rem;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    font-family: "Poppins";
+}
+.authButton button:hover{
+    box-shadow: 0px 0px 50px 0px rgba(0, 25, 255, 0.24);
+}
+

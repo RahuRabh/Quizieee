@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+input.error {
+  border: 1px solid #d60000;
+  color: #d60000;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 15px;
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  width: 100%; /* Full width for responsiveness */
+  max-width: 600px; /* Limit the maximum width for large screens */
+  margin: auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* Full width for responsiveness */
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1rem;
+  width: 100%; /* Full width for responsiveness */
+}
+
+label {
+  color: #474444;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  font-family: "Poppins", sans-serif;
+  text-align: right;
+  width: 40%;
+}
+
+input {
+  width: 65%;
+  height: 4vh;
+  border-radius: 10px 10px 0 0;
+  border: 1px solid #f4f4f4;
+  padding: 0.5rem;
+  background-color: #f4f4f4;
+  margin-left: 2.5vw;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  line-height: 15px;
+}
+
+button {
+  max-width: 274px;
+  width: 35vw;
+  height: 4vh;
+  max-height: 38px;
+  border-radius: 8px;
+  background-color: #a9bcff;
+  color: #474444;
+  cursor: pointer;
+  border: none;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  margin-top: 1rem;
+}

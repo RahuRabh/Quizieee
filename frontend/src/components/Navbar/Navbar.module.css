@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Jomhuria&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+.navbar {
+  width: 200px;
+  height: 100vh;
+  position: fixed;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.title {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 70px;
+  font-weight: 400;
+  line-height: 50px;
+  color: #474444;
+  font-family: "Jomhuria";
+}
+
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar li {
+  width: 70%;
+  border-radius: 10px;
+  transition: box-shadow 0.3s ease;
+  padding: 20px;
+  text-align: center;
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  color: #474444;
+  cursor: pointer;
+}
+
+.navbar li:hover {
+  box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.12);
+}
+.navbar li a {
+  color: #474444;
+  text-decoration: none;
+}
+
+.hrline {
+  width: 70%;
+  border: 1px solid black;
+}
+
+.logOut {
+  color: #474444;
+  font-family: "Poppins";
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 700;
+  text-align: center;
+  border: none;
+  background-color: white;
+  width: 80px;
+  height: 40px;
+  margin-left: 25%;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
