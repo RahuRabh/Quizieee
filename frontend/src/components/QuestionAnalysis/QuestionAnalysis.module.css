@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+.homepage {
+    display: flex;
+  }
+.container {
+    margin-left: 250px;
+    width: calc(100% - 200px);
+    padding: 2rem;
+    overflow: hidden;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+  
+  .title {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 60px;
+    color: #5076FF; 
+  }
+  
+  .info {
+    text-align: right;
+    color: #FF5D01;
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    margin-right: 1rem;
+  }
+  .qscroll{
+    height: 44rem;
+    max-height: 700px;
+    overflow-y: auto;
+  }
+  .questionsContainer {
+    color: black;
+    width: 52rem;
+    max-width: 850px;
+    height: 10rem;
+    max-height: 160px;
+    margin-bottom: 7rem;
+  }
+  
+  .questions {
+    margin-bottom: 2rem;
+  }
+  
+  .questionTitle {
+    font-size: 30px;
+    font-weight: 500;
+    font-family: 'Poppins';
+    line-height: 30px;
+    margin-bottom: 2rem;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4rem;
+  }
+  
+  .statBox {
+    width: 250px;
+    height: 135px;
+    border-radius: 5px;
+    background-color: white;
+    text-align: center;
+  }
+  
+  .statNumber {
+    font-family: 'Poppins';
+    font-size: 30px;
+    line-height: 45px;
+    font-weight: 600;
+    color: #474444;
+  }
+  
+  .statLabel {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #474444;
+  }
+  .Hrline{
+    width: 880px;
+    border: 2px solid #D7D7D7;
+  }

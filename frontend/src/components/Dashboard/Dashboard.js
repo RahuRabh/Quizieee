@@ -26,89 +26,9 @@ export default function Dashboard() {
             <div className={styles.quizList}>
                 <div className={styles.tquiz}>
                     <p className={styles.name}>Quiz 1</p>
-                    <p className={styles.eye}>600 <img src={eye} /></p>
+                    <p className={styles.eye}>600 <img alt='eye' src={eye} /></p>
                     <p className={styles.date}>Created on: 04 Sep, 2023</p>
                 </div>
-                
-                <div className={styles.tquiz}>
-                    <p className={styles.name}>Quiz 1</p>
-                    <p className={styles.eye}>600 <img src={eye} /></p>
-                    <p className={styles.date}>Created on: 04 Sep, 2023</p>
-                </div>
-                <div className={styles.tquiz}>
-                    <p className={styles.name}>Quiz 1</p>
-                    <p className={styles.eye}>600 <img src={eye} /></p>
-                    <p className={styles.date}>Created on: 04 Sep, 2023</p>
-                </div>
-               
-                
-                <div className={styles.tquiz}>
-                    <p className={styles.name}>Quiz 1</p>
-                    <p className={styles.eye}>600 <img src={eye} /></p>
-                    <p className={styles.date}>Created on: 04 Sep, 2023</p>
-                </div>
-                <div className={styles.tquiz}>
-                    <p className={styles.name}>Quiz 1</p>
-                    <p className={styles.eye}>600 <img src={eye} /></p>
-                    <p className={styles.date}>Created on: 04 Sep, 2023</p>
-                </div>
-                <div className={styles.tquiz}>
-                    <p className={styles.name}>Quiz 1</p>
-                    <p className={styles.eye}>600 <img src={eye} /></p>
-                    <p className={styles.date}>Created on: 04 Sep, 2023</p>
-                </div>
-                <div className={styles.tquiz}>
-                    <p className={styles.name}>Quiz 1</p>
-                    <p className={styles.eye}>600 <img src={eye} /></p>
-                    <p className={styles.date}>Created on: 04 Sep, 2023</p>
-                </div><div className={styles.tquiz}>
-                    <p className={styles.name}>Quiz 1</p>
-                    <p className={styles.eye}>600 <img src={eye} /></p>
-                    <p className={styles.date}>Created on: 04 Sep, 2023</p>
-                </div>
-                <div className={styles.tquiz}>
-                    <p className={styles.name}>Quiz 1</p>
-                    <p className={styles.eye}>600 <img src={eye} /></p>
-                    <p className={styles.date}>Created on: 04 Sep, 2023</p>
-                </div><div className={styles.tquiz}>
-                    <p className={styles.name}>Quiz 1</p>
-                    <p className={styles.eye}>600 <img src={eye} /></p>
-                    <p className={styles.date}>Created on: 04 Sep, 2023</p>
-                </div>
-                <div className={styles.tquiz}>
-                    <p className={styles.name}>Quiz 1</p>
-                    <p className={styles.eye}>600 <img src={eye} /></p>
-                    <p className={styles.date}>Created on: 04 Sep, 2023</p>
-                </div>
-                <div className={styles.tquiz}>
-                    <p className={styles.name}>Quiz 1</p>
-                    <p className={styles.eye}>600 <img src={eye} /></p>
-                    <p className={styles.date}>Created on: 04 Sep, 2023</p>
-                </div>
-                <div className={styles.tquiz}>
-                    <p className={styles.name}>Quiz 1</p>
-                    <p className={styles.eye}>600 <img src={eye} /></p>
-                    <p className={styles.date}>Created on: 04 Sep, 2023</p>
-                </div><div className={styles.tquiz}>
-                    <p className={styles.name}>Quiz 1</p>
-                    <p className={styles.eye}>600 <img src={eye} /></p>
-                    <p className={styles.date}>Created on: 04 Sep, 2023</p>
-                </div>
-                <div className={styles.tquiz}>
-                    <p className={styles.name}>Quiz 1</p>
-                    <p className={styles.eye}>600 <img src={eye} /></p>
-                    <p className={styles.date}>Created on: 04 Sep, 2023</p>
-                </div><div className={styles.tquiz}>
-                    <p className={styles.name}>Quiz 1</p>
-                    <p className={styles.eye}>600 <img src={eye} /></p>
-                    <p className={styles.date}>Created on: 04 Sep, 2023</p>
-                </div>
-                <div className={styles.tquiz}>
-                    <p className={styles.name}>Quiz 1</p>
-                    <p className={styles.eye}>600 <img src={eye} /></p>
-                    <p className={styles.date}>Created on: 04 Sep, 2023</p>
-                </div>
-                
             </div>
         </div>
     </main>

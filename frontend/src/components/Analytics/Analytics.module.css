@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+.container {
+  min-height: 100vh;
+  background-color: #ededed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem;
+}
+
+.title {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 50px;
+  line-height: 75px;
+  text-align: center;
+  color: #5076ff;
+  margin-bottom: 3rem;
+}
+
+.tableContainer {
+  overflow-y: auto;
+  width: 58rem;
+  max-width: 930px;
+  height: 25rem;
+  max-height: 400px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.tableHead {
+  background-color: #5076ff;
+  color: white;
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 30px;
+}
+
+.tableCell {
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 30px;
+}
+
+.tableRowEven {
+  background-color: #ededed;
+}
+
+.tableRowOdd {
+  background-color: #b3c4ff;
+}
+
+.tableActions {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.tableIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.tableAnalysis {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.table th,
+.table td {
+  border: none;
+}
