@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Auth.module.css";
-import Register from "../Register/Register";
-import Login from "../Login/Login";
+import Register from "./Register/Register";
+import Login from "./Login/Login";
 export default function Auth() {
   const [currentView, setcurrentView] = useState(null);
   return (

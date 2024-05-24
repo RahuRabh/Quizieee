@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import styles from './Login.module.css';
-import { loginUser } from "../../apis/auth"
+import { loginUser } from "../../../apis/auth"
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
@@ -9,9 +9,12 @@ export default function Login() {
   const methods = useForm();
   const { handleSubmit, register,setError ,formState: { errors } } = methods;
 
-  const onSubmit = async data => {
+  const onSubmit = async (data) => {
     try {
       const response = await loginUser(data);
+      
+      localStorage.setItem("token", response?.token)
+      localStorage.setItem("userId", response?.userId)
       if(response.errorMessage){
         if (response.errorMessage.includes('Invalid email')) {
           setError('email', { type: 'manual', message: response.errorMessage });
@@ -20,7 +23,7 @@ export default function Login() {
         }
       }
       else{
-        navigate("/")
+        navigate("/home/dashboard")
       }
       
     } catch (error) {

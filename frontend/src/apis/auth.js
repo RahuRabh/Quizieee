@@ -22,6 +22,7 @@ export const loginUser = async ({ email, password }) => {
     const reqUrl = `${backendUrl}/auth/login`;
     const response = await axios.post(reqUrl, { email, password });
     return response.data;
+    
     // if (response.data.errorMessage) {
     //   throw new Error(response.data.errorMessage);
     // }

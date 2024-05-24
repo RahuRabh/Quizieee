@@ -1,8 +1,9 @@
 .main {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 1rem;
+  margin-left: 200px;
+  width: calc(100% - 200px);
+  padding: 2rem;
 }
 
 .heading {
@@ -25,7 +26,7 @@
   max-height: 145px;
   border-radius: 10px;
   background-color: white;
-  text-align: center; 
+  text-align: center;
 }
 
 .quiz {
@@ -48,7 +49,7 @@
 .no {
   font-size: 3.75em;
   font-weight: 600;
-  line-height: 70px; 
+  line-height: 70px;
   margin-right: 20px;
 }
 
@@ -88,25 +89,25 @@
   border-radius: 5px;
   padding: 5px;
 }
-.name, .eye {
-    display: inline;
-    margin-right: 10px;
+.name,
+.eye {
+  display: inline;
+  margin-right: 10px;
 }
-.name{
-    color: #474444;
-    font-weight: 600;
-    font-size: 25px;
-    line-height: 20px;
-    /* FontPoppins */
+.name {
+  color: #474444;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 20px;
+  /* FontPoppins */
 }
-.eye{
-    color: #ff5d01;
-    text-align: end;
+.eye {
+  color: #ff5d01;
+  text-align: end;
 }
-.date{
-    color: #60b84b;
+.date {
+  color: #60b84b;
 }
-
 
 /* @media (max-width: 768px) {
   .heading {

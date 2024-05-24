@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
-import styles from './Register.module.css';
-import { registerUser } from "../../apis/auth"   
+import styles from './Register.module.css';   
+import { registerUser} from "../../../apis/auth"
 export default function Register({ setCurrentView }) {
   const methods = useForm();
   const { handleSubmit, register, watch, setError, formState: { errors } } = methods;

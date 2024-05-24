@@ -1,0 +1,90 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(29, 28, 28, 0.886);
+}
+
+.container {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  width: 855px;
+  height: 450px;
+  border-radius: 10px;
+}
+.form {
+  width: 700px;
+  height: 80px;
+}
+.input {
+  border-radius: 10px;
+  box-shadow: 0px 0px 25px 0px rgba(0, 15, 0, 0.25);
+  font: "Poopins";
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 35px;
+  color: #9f9f9f;
+
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+  width: 700px;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.label {
+  color: #9f9f9f;
+  font-family: "Poppins";
+  font-size: 25px;
+  line-height: 38px;
+}
+.buttonGroup {
+  display: flex;
+  gap: 2rem;
+}
+.quizType {
+  width: 160px;
+  height: 45px;
+  border-radius: 10px;
+  color: #9f9f9f;
+  font-family: "Poppins";
+  font-size: 20px;
+  line-height: 38px;
+  box-shadow: 0px 0px 25px 0px rgba(0, 15, 0, 0.25);
+  text-align: center;
+  cursor: pointer;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 30px;
+}
+.actionButtons button {
+  width: 250px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.cancelButton {
+  background-color: #ffffff;
+  color: #474444;
+  text-align: center;
+  box-shadow: 0px 0px 25px 0px rgba(0, 15, 0, 0.25);
+}
+
+.continueButton {
+  background-color: #4caf50;
+  color: #fff;
+}
