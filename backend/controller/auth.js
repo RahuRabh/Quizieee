@@ -8,17 +8,11 @@ const registerUser = async (req, res) => {
   try {
     const { name, email, password, confirmPassword } = req.body;
 
-    if (!name || !email || !password || !confirmPassword) {
-      return res.json({
-        errorMessage: "Fill all credentials",
-      });
-    }
-
     const isExistingUser = await User.findOne({ email: email });
 
     if (isExistingUser) {
       return res.json({
-        errorMessage: "User already exists",
+        errorMessage: "Email already exists",
       });
     }
     if (password !== confirmPassword) {
@@ -46,10 +40,6 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-
-    if (!email || !password) {
-      return res.json({ errorMessage: "Invalid credentials" });
-    }
 
     const userDetails = await User.findOne({ email });
     if (!userDetails) {

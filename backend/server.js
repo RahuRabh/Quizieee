@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 
 const auth = require("./routes/auth");
 const quiz = require("./routes/quiz");
-// const errorHandler = require("./middleware/errorHandler")
+const errorHandler = require("./middleware/errorHandler")
 
 const app = express();
 
@@ -23,10 +23,10 @@ mongoose
 
 app.use("/api/auth", auth);
 app.use("/api/quiz", quiz);
-// app.use("/", errorHandler)
 app.use("/*", (req, res) => {
   res.status(404).json({ errorMessage: "Route Not found" });
 });
+app.use("/", errorHandler)
 
 const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || 3000;
