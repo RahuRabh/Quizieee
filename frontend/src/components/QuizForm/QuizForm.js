@@ -61,11 +61,11 @@ export default function QuizForm({onCancel}) {
       {step === 1 ? (
         <QuizForm1 
           onSubmit={handleQuizForm1Submit}
-          
           onCancel={onCancel}
         />
       ) : (
         <QuizForm2 
+        quizType={quizType}
         onCancel={onCancel} 
         onSubmit={handleQuizForm2Submit} />
       )}

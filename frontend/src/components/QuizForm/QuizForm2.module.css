@@ -9,7 +9,7 @@
 
 .container {
   background-color: #ffffff;
-  width: 850px;
+  width: 900px;
   height: 700px;
   border-radius: 10px;
   padding: 20px;
@@ -67,7 +67,7 @@
   background-color: white;
 }
 
-.questionInput {
+.questionInput{
   width: 670px;
   border-radius: 10px;
   height: 50px;
@@ -81,26 +81,57 @@
   display: flex;
   justify-self: start;
   align-items: start;
-  width: 550px;
+  width: 100%;
 }
-.optionType label{
+
+.optionLabel{
+  display: inline;
   font-family: 'Poppins';
   font-weight: 500;
-  font-size: 20px;
-  line-height: 30px;
-  align-items: center;
   color: #9F9F9F;
+  width: 24%;
 }
-.radioButtons{
+.optionButtons{
   display: flex;
-  /* width: 55px; */
-  /* height: 15px; */
+  flex-direction: row;
+  font-family: 'Poppins';
+  font-weight: 500;
+  color: #9F9F9F;
+  width: 100%;
 }
-.optionInput {
-  flex-grow: 1;
-  padding: 0.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
+.optionButtons input{
+  width: 25px;
+  height: 25px;
+}
+.answerButton{
+  width: 20px;
+}
+.answerText {
+  margin-bottom: 1.3rem;
+  padding: 0.3rem;
+  border: none;
+  width: 300px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0px 0px 10px 0px rgba(0, 15, 0, 0.25);
+  color: #9F9F9F;
+  font-size: 20px;
+  font-family: 'Poppins';
+  font-weight: 500;
+  line-height: 30px;
+}
+.addOptionButton{
+  margin-left: 6.5rem;
+  padding: 0.3rem;
+  width: 300px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0px 0px 10px 0px rgba(0, 15, 0, 0.25);
+  color: #9F9F9F;
+  font-size: 20px;
+  font-family: 'Poppins';
+  font-weight: 500;
 }
 
 .optionSelected {
@@ -113,57 +144,83 @@
   color: #ffffff;
 }
 
-.deleteButton {
-  background: none;
-  border: none;
-  color: #ef4444;
-}
-
-.addButton {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
-}
-
-.timer {
-  margin-bottom: 1rem;
-}
-
 .timerOptions {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-
-.timerOption {
+.timerTitle{
+  font-size: 20px;
+  font-family: 'Poppins';
+  font-weight: 500;
+  line-height: 30px;
+  text-align: center;
+  color: #9F9F9F;
+}
+.timer{
+  width: 100px;
+  height: 35px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 15, 0, 0.25);
+  background-color: white;
+  color: #9F9F9F;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  font-size: 15px;
+  margin-bottom: 15px;
+  cursor: pointer;
 }
-
-.timerSelected {
-  background-color: #ef4444;
-  color: #ffffff;
-  padding: 0.25rem;
-  border-radius: 0.5rem;
+.timerradioButtons{
+  display: flex;
+  flex-direction: column;
 }
 
 .actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  margin-top: 2rem;
+}
+.actions button{
+  width: 280px;
+  height: 45px;
+  border-radius: 10px;
+  font-family: 'Poppins';
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
 }
 
 .cancelButton {
-  background-color: #e2e2e2;
-  color: #737373;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
+  background-color: #ffffff;
+  color: #474444;
+  box-shadow: 0px 0px 10px 0px rgba(0, 15, 0, 0.25);
 }
 
 .createButton {
   background-color: #10b981;
   color: #ffffff;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
+}
+
+.answerOption{
+  display: flex;
+  margin-top: 1.5rem;
+  justify-content: space-between;
+}
+.answers{
+  display: flex;
+  flex-direction: row;
+}
+
+.deletebtn{
+  width: 25px;
+  height: 25px;
+  margin-left: 20px;
+}
+/* .correctAnswer {
+  background-color: green;
+} */
+
+.selectedTimer {
+  background-color: red;
 }
