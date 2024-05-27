@@ -11,3 +11,14 @@ export const createQuiz = async (quizData) => {
     console.log(error);
   }
 };
+
+export const getQuizById = async (id) => {
+  try{
+    const reqUrl = `${backendUrl}/quiz/playQuiz/${id}`;
+    const response = await axios.get(reqUrl);
+    return response.data
+    // axios.post(`backendUrl/quiz/getQuizById/${id}/impression`)
+  }catch(error){
+    console.log(error);
+  }
+}

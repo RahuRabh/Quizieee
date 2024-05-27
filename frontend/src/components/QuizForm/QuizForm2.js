@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import del from '../../utils/del.png';
 import cross from '../../utils/cross.png';
 import styles from './QuizForm2.module.css';
-
 const useFormValidation = (slides) => {
   const [errors, setErrors] = useState([]);
 

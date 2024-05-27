@@ -1,0 +1,66 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(29, 28, 28, 0.886);
+  }
+  
+  .popup {
+    width: 845px;
+    height: 480px;
+    background-color: white;
+    border-radius: 10px;
+  }
+  .closeButton {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+
+  }
+  .body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .body h2 {
+    font-family: 'Poppins';
+    font-size: 40px;
+    line-height: 50px;
+    text-align: center;
+    font-weight: 600;
+    color: #474747;
+  }
+  
+  .linkInput {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #EDEDED;
+    color: #474747;
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 35px;
+    margin-top: 2rem;
+  }
+  
+  .input:read-only {
+    cursor: not-allowed;
+  }
+  
+  .shareButton {
+    margin-top: 5rem;
+    background-color: #60B84B;    
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+  }
+  
