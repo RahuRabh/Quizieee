@@ -6,21 +6,21 @@ const {
 //logic for handling creation of quiz
 const createQuiz = async (req, res, next) => {
   try {
-    const { name, type, numberOfQuestions, questions, userId } = req.body;
-    if (!name || !type || !numberOfQuestions || !questions || !userId) {
+    const { name, type, slides, userId } = req.body;
+    if (!name || !type  || !slides || !userId) {
       return res.status(400).json({ message: "Please fill all the fields" });
     }
     const quizDetails = new Quiz({
       userId: userId,
       name: name,
-      numberOfQuestions: numberOfQuestions,
-      questions: questions,
+      slides: slides,
       type: type,
     });
 
     await quizDetails.save();
     res.json({ message: "Quiz created" });
   } catch (error) {
+    console.error(`[ERROR]::${error}`);
     next(error);
   }
 };
@@ -69,7 +69,11 @@ const getQuizById = async (req, res, next) => {
   try {
     const { quizId } = req.params;
     const quiz = await Quiz.findById(quizId);
-    res.json(quiz);
+    res.json({
+      quizName: quiz.name,
+      quizType: quiz.type,
+      slides: quiz.slides
+    });
   } catch (error) {
     next(error);
   }

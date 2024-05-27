@@ -8,9 +8,9 @@ router.post("/createQuiz",  quizController.createQuiz);
 
 router.put("/editQuizById/:quizId", verifyToken, quizController.editQuizById);
 
-router.get("/getAllQuiz", verifyToken, quizController.getAllQuiz);
+router.get("/getAllQuiz",  quizController.getAllQuiz);
 
-router.get("/getQuizById/:quizId", quizController.getQuizById);
+router.get("/playQuiz/:quizId", quizController.getQuizById);
 
 router.put("/deleteQuizById/:quizId", verifyToken, quizController.deleteQuizById);
 

@@ -1,34 +1,29 @@
 const mongoose = require("mongoose");
 
-const questionSchema = new mongoose.Schema({
-  question: { type: String, required: true },
+const optionSchema = new mongoose.Schema({
+  text: {type: String},
+  image: {type: String},
+  isCorrectAnswer: {type: Boolean, default: false},
+})
+const slideSchema = new mongoose.Schema({
+  question: {type: String, required: true},
   answerType: {
-    type: String,
-    required: true,
-    enum: ["Text", "Image Url", "Text & Image Url"],
+    type: String, required: true, enum:['text', 'imageUrl', 'textImageUrl'],
   },
-  options: [
-    {
-      text: { type: String },
-      image: { type: String },
-      isCorrectAnswer: { type: Boolean, default: false },
-    },
-  ],
-  correctAnswer: { type: mongoose.Schema.Types.ObjectId, ref: "options" },
   timer: {
     type: String,
-    enum: ["Off", "5", "10"],
+    enum: ["off", "5sec", "10sec"],
     required: function () {
       return (this.type = "Q&A");
     },
   },
-});
+  options: [optionSchema],
+})
 
 const quizSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  type: { type: String, required: true, enum: ["Q&A", "Poll Type"] },
-  numberOfQuestions: { type: Number, requied: true },
-  questions: [questionSchema],
+  type: { type: String, required: true, enum: ["Q&A", "Poll"] },
+  slides:[slideSchema],
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
