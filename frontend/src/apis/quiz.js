@@ -22,3 +22,23 @@ export const getQuizById = async (id) => {
     console.log(error);
   }
 }
+
+export const getQuizByUser = async(userId) => {
+  try{
+    const reqUrl = `${backendUrl}/quiz/getQuizByUser/${userId}`
+    const response = await axios.get(reqUrl)
+    return response.data
+  }catch(error){
+    console.log(error);
+  }
+}
+
+export const questionWiseAnalysis = async(quizId) => {
+  try{
+    const reqUrl = `${backendUrl}/quiz/questionWiseAnalysis/${quizId}`
+    const response = await axios.get(reqUrl)
+    return response.data
+  }catch(error){
+    console.log(error);
+  }
+}

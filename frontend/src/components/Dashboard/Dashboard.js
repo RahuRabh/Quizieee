@@ -1,17 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Dashboard.module.css";
 import eye from "../../utils/eye.png";
+import { useParams } from "react-router-dom";
+import { getQuizByUser } from '../../apis/quiz'
 export default function Dashboard() {
+  const [quizData, setquizData] = useState([])
+
+  const userId = localStorage.getItem('userId')
+  useEffect(() => {
+    const fetchQuiz = async () => {
+      try {
+        const response = await getQuizByUser(userId);
+        setquizData(response.dashboardData)
+        // Increment impressions
+        // await axios.post(`/api/quiz/${id}/impression`);
+      } catch (error) {
+        console.error('Error fetching quiz:', error);
+      }
+    };
+
+    fetchQuiz();
+  }, [userId]);
+    
   return (
       <div className={styles.main}>
         <div className={styles.heading}>
           <div className={styles.quiz}>
-            <p className={styles.no}>12</p>
+            <p className={styles.no}>{quizData.totalQuizzes}</p>
             <p className={styles.title}>Quiz</p>
             <p className={styles.text}>Created</p>
           </div>
           <div className={styles.questions}>
-            <p className={styles.no}>100</p>
+            <p className={styles.no}>{quizData.totalQuestions}</p>
             <p className={styles.title}>questions</p>
             <p className={styles.text}>Created</p>
           </div>

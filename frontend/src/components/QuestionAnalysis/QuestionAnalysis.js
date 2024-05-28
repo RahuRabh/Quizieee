@@ -1,18 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import styles from "./QuestionAnalysis.module.css";
+import { questionWiseAnalysis } from "../../apis/quiz"
 
-export default function QuizQuestionAnalysis() {
+import { useLocation } from "react-router-dom";
+export default function QuestionAnalysis() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const quizId = searchParams.get('quizId');
+  const [quizAnalysisData, setquizAnalysisData] = useState([])
+  useEffect(() => {
+    const fetchQuiz = async () => {
+      try {
+        const response = await questionWiseAnalysis(quizId);
+        setquizAnalysisData(response)
+      } catch (error) {
+        console.error('Error fetching quiz:', error);
+      }
+    };
+
+    fetchQuiz();
+  }, [quizId]);
+  const convertDate = (dateString) => {
+    const date = new Date(dateString)
+    const option = {day: 'numeric', month: 'long', year: 'numeric'}
+    return date.toLocaleDateString('en-Us', option)
+  }
   return (
     <div className={styles.homepage}>
       <Navbar />
       <div className={styles.container}>
         <div className={styles.header}>
-          {/* {quiz.number} */}
-          <h1 className={styles.title}>Quiz 1 Question Analysis</h1>
+          <h1 className={styles.title}>{quizAnalysisData.quizName} Question Analysis</h1>
           <div className={styles.info}>
             {/* {quiz.createdOn} */}
-            <p>Created on: 04 Sep, 2023</p>
+            <p>{convertDate(quizAnalysisData.createdAt)}</p>
             {/* {quiz.impressions} */}
             <p>Impressions: 600</p>
           </div>

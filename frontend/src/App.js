@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthPage from "./pages/AuthPage/AuthPage";
-import QuestionWisePage from "./pages/QuestionWisePage/QuestionWisePage";
+import QuestionAnalysisPage from './pages/QuestionAnalysisPage/QuestionAnalysisPage'
 import ProtectRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
 import QuizPage from "./pages/QuizPage/QuizPage";
 import HomePage from "./pages/HomePage/HomePage";
@@ -16,8 +16,8 @@ function App() {
           element={<ProtectRoutes Component={HomePage} />}
         />
         <Route
-          path="/question-wise"
-          element={<ProtectRoutes Component={QuestionWisePage} />}
+          path="/question-analysis"
+          element={<ProtectRoutes Component={QuestionAnalysisPage} />}
         />
         <Route path="/quiz/playQuiz/:id" element={<QuizPage />} />
       </Routes>
