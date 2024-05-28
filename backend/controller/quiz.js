@@ -17,8 +17,11 @@ const createQuiz = async (req, res, next) => {
       type: type,
     });
 
-    await quizDetails.save();
-    res.json({ message: "Quiz created" });
+    const response = await quizDetails.save();
+    res.json({ 
+      message: "Quiz created", 
+      id: response._id,
+    });
   } catch (error) {
     console.error(`[ERROR]::${error}`);
     next(error);
