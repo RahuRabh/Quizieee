@@ -13,32 +13,42 @@ export const createQuiz = async (quizData) => {
 };
 
 export const getQuizById = async (id) => {
-  try{
+  try {
     const reqUrl = `${backendUrl}/quiz/playQuiz/${id}`;
     const response = await axios.get(reqUrl);
-    return response.data
+    return response.data;
     // axios.post(`backendUrl/quiz/getQuizById/${id}/impression`)
-  }catch(error){
+  } catch (error) {
     console.log(error);
   }
-}
+};
 
-export const getQuizByUser = async(userId) => {
-  try{
-    const reqUrl = `${backendUrl}/quiz/getQuizByUser/${userId}`
-    const response = await axios.get(reqUrl)
-    return response.data
-  }catch(error){
+export const getQuizByUser = async (userId) => {
+  try {
+    const reqUrl = `${backendUrl}/quiz/getQuizByUser/${userId}`;
+    const response = await axios.get(reqUrl);
+    return response.data;
+  } catch (error) {
     console.log(error);
   }
-}
+};
 
-export const questionWiseAnalysis = async(quizId) => {
-  try{
-    const reqUrl = `${backendUrl}/quiz/questionWiseAnalysis/${quizId}`
-    const response = await axios.get(reqUrl)
-    return response.data
-  }catch(error){
+export const questionWiseAnalysis = async (quizId) => {
+  try {
+    const reqUrl = `${backendUrl}/quiz/questionWiseAnalysis/${quizId}`;
+    const response = await axios.get(reqUrl);
+    return response.data;
+  } catch (error) {
     console.log(error);
   }
-}
+};
+
+export const deleteQuizById = async (quizId) => {
+  try {
+    const reqUrl = `${backendUrl}/quiz/deleteQuizById/${quizId}`;
+    const response = await axios.put(reqUrl);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};

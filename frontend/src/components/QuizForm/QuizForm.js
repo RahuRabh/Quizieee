@@ -21,17 +21,18 @@ export default function QuizForm({ onCancel, onSuccess }) {
     setStep(2);
   };
 
-  const handleQuizForm2Submit = async (newQuestions) => {
-    console.log("Answer type kya hai", newQuestions);
-    setQuizDetails((prevState) => ({
-      ...prevState,
-      questions: newQuestions,
-    }));
+  const handleQuizForm2Submit = async (newSlides) => {
+    const quizData = {
+      name: quizDetails.name,
+      type: quizDetails.type,
+      slides: newSlides,
+      userId: localStorage.getItem("userId"),
+    }
 
     try {
-      const response = await createQuiz(quizDetails);
+      const response = await createQuiz(quizData);
       onSuccess()
-      console.log(response);
+      localStorage.setItem("QuizId", response.id)
     } catch (error) {
       console.log(error);
     }

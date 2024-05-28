@@ -7,10 +7,15 @@ export default function QuizForm1({
 }) {
   const [quizName, setQuizName] = useState('')
   const [quizType, setQuizType] = useState('')
+  const [selectedQuizType, setSelectedQuizType] = useState('')
 
   const handleSubmit = () => {
     onSubmit(quizName, quizType)
   }
+  const handleQuizTypeClick = (type) => {
+    setQuizType(type);
+    setSelectedQuizType(type);
+  };
   return (
     <div className={styles.overlay}>
       <div className={styles.container}>
@@ -27,14 +32,14 @@ export default function QuizForm1({
             <label className={styles.label}>Quiz Type</label>
             <div className={styles.buttonGroup}>
               <div
-                className={styles.quizType} 
-                onClick={() => setQuizType("Q&A")}
+                className={`${styles.quizType} ${selectedQuizType === 'Q&A' ? styles.selected : ''}`}
+                onClick={() => handleQuizTypeClick('Q&A')}
               >
                 Q & A
               </div>
               <div
-                className={styles.quizType}
-                onClick={() => setQuizType("Poll")}
+                className={`${styles.quizType} ${selectedQuizType === 'Poll' ? styles.selected : ''}`}
+                onClick={() => handleQuizTypeClick('Poll')}
               >
                 Poll Type
               </div>
