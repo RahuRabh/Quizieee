@@ -36,8 +36,9 @@ export default function QuestionAnalysis() {
   if (isLoading) return <div>Loading...</div>;
   if (!quizAnalysisData) return <div>No data found.</div>;
 
-  const { quizName, createdAt, questionAnalysis } = quizAnalysisData;
+  const { quizName, createdAt, impression, questionAnalysis} = quizAnalysisData;
 
+  console.log("questionAnalysis",questionAnalysis);
   return (
     <div className={styles.homepage}>
       <Navbar />
@@ -46,7 +47,7 @@ export default function QuestionAnalysis() {
           <h1 className={styles.title}>{quizName} Question Analysis</h1>
           <div className={styles.info}>
             <p>{convertDate(createdAt)}</p>
-            <p>Impressions: 600</p>
+            <p>Impressions: {impression}</p>
           </div>
         </div>
         <div className={styles.qscroll}>
@@ -58,15 +59,15 @@ export default function QuestionAnalysis() {
                 </h2>
                 <div className={styles.grid}>
                   <div className={styles.statBox}>
-                    <p className={styles.statNumber}>60</p>
+                    <p className={styles.statNumber}>{question.attempts}</p>
                     <p className={styles.statLabel}>people Attempted the question</p>
                   </div>
                   <div className={styles.statBox}>
-                    <p className={styles.statNumber}>38</p>
+                    <p className={styles.statNumber}>{question.correct}</p>
                     <p className={styles.statLabel}>people Answered Correctly</p>
                   </div>
                   <div className={styles.statBox}>
-                    <p className={styles.statNumber}>22</p>
+                    <p className={styles.statNumber}>{question.incorrect}</p>
                     <p className={styles.statLabel}>people Answered Incorrectly</p>
                   </div>
                 </div>

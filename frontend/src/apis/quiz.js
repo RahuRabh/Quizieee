@@ -52,19 +52,12 @@ export const deleteQuizById = async (quizId) => {
   }
 };
 
-
-export const updateQuestionStats = async (quizId, slideIndex, isCorrect) => {
-  const response = await fetch('/api/quiz/update-stats', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ quizId, slideIndex, isCorrect })
-  });
-  
-  if (!response.ok) {
-    throw new Error('Failed to update question stats');
+export const updateQuestionStats = async (quizId, slideId, stats) => {
+  try{
+    const reqUrl = `${backendUrl}/quiz/${quizId}/slide/${slideId}`
+    const response = await axios.post(reqUrl, stats);
+    console.log(response);
+  }catch(error){
+    console.log(error);
   }
-
-  return await response.json();
 };

@@ -51,7 +51,7 @@ export default function Analytics() {
       .then(() => {
         toast.success('Link copied to clipboard', {
           position: 'top-right',
-          autoClose: 5000,
+          autoClose: 2000,
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,

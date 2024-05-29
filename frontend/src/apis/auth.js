@@ -23,13 +23,7 @@ export const loginUser = async ({ email, password }) => {
     const response = await axios.post(reqUrl, { email, password });
     return response.data;
     
-    // if (response.data.errorMessage) {
-    //   throw new Error(response.data.errorMessage);
-    // }
-
-    // return response.data.message;
   } catch (error) {
-    // console.log(error);
     throw error;
   }
 };
