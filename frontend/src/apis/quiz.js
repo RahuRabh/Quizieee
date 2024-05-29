@@ -17,7 +17,6 @@ export const getQuizById = async (id) => {
     const reqUrl = `${backendUrl}/quiz/playQuiz/${id}`;
     const response = await axios.get(reqUrl);
     return response.data;
-    // axios.post(`backendUrl/quiz/getQuizById/${id}/impression`)
   } catch (error) {
     console.log(error);
   }
@@ -51,4 +50,21 @@ export const deleteQuizById = async (quizId) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+
+export const updateQuestionStats = async (quizId, slideIndex, isCorrect) => {
+  const response = await fetch('/api/quiz/update-stats', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ quizId, slideIndex, isCorrect })
+  });
+  
+  if (!response.ok) {
+    throw new Error('Failed to update question stats');
+  }
+
+  return await response.json();
 };

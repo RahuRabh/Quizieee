@@ -93,7 +93,7 @@ export default function Analytics() {
                   <td className={styles.tableCell}>{index +1}</td>
                   <td className={styles.tableCell}>{quiz.name}</td>
                   <td className={styles.tableCell}>{convertDate(quiz.createdAt)}</td>
-                  <td className={styles.tableCell}>10</td>
+                  <td className={styles.tableCell}>{quiz.impression}</td>
                   <td className={`${styles.tableCell} ${styles.tableActions}`}>
                     <img src={edit} alt="edit" className={styles.tableIcon} />
                     <img
