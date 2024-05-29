@@ -5,6 +5,7 @@ const verifyToken = require('../middleware/authMiddleware')
 
 //Routes for handling all Quiz api
 router.post("/createQuiz",  quizController.createQuiz);
+router.post('/quiz/update-stats', quizController.updateQuestionStats);
 // verifyToken - for createQuiz
 router.get("/getQuizByUser/:userId",  quizController.getQuizByUser);
 // verifyToken - for getQuizByUser
