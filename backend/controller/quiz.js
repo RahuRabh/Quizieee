@@ -99,39 +99,25 @@ const questionWiseAnalysis = async (req, res, next) => {
 
   const quizName = quizes.name
   const createdAt = quizes.createdAt
+  const impression = quizes.impressions
   const questionAnalysis = quizes.slides.map(slide => ({
-      questionName: slide.question
+      questionName: slide.question,
+      attempts: slide.attempts,
+      correct: slide.correct,
+      incorrect: slide.incorrect,
     }))
   res.json({
     quizName,
     createdAt,
+    impression,
     questionAnalysis
   })
 }
 
 //logic for getting quiz by its id previous
-// const getQuizById = async (req, res, next) => {
-//   try {
-//     const { quizId } = req.params;
-//     const quiz = await Quiz.findById(quizId);
-//     res.json({
-//       quizName: quiz.name,
-//       quizType: quiz.type,
-//       slides: quiz.slides
-//     });
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
 const getQuizById = async (req, res, next) => {
   try {
     const { quizId } = req.params;
-    // const quiz = await Quiz.findByIdAndUpdate(
-    //   quizId,
-    //   { $inc: { impressions: 1 } },
-    //   { new: true }
-    // );
     const quiz = await Quiz.findById(quizId)
     quiz.impressions += 1;
     await quiz.save()
@@ -140,10 +126,10 @@ const getQuizById = async (req, res, next) => {
       return res.status(404).json({ message: 'Quiz not found' });
     }
     res.json({
+      quizId: quiz._id,
       quizName: quiz.name,
       quizType: quiz.type,
       slides: quiz.slides,
-      impressions: quiz.impressions,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -165,21 +151,22 @@ const deleteQuizById = async (req, res, next) => {
 
 const updateQuestionStats = async (req, res, next) => {
   try {
-    const { quizId, slideIndex, isCorrect } = req.body;
-    const updateQuery = {
-      $inc: {
-        [`slides.${slideIndex}.attempts`]: 1,
-        [`slides.${slideIndex}.correct`]: isCorrect ? 1 : 0,
-        [`slides.${slideIndex}.incorrect`]: isCorrect ? 0 : 1
-      }
-    };
-    const quiz = await Quiz.findByIdAndUpdate(quizId, updateQuery, { new: true });
-    if (!quiz) {
-      return res.status(404).json({ message: 'Quiz not found' });
-    }
-    res.json(quiz);
+    const { quizId, slideId } = req.params;
+    const { attempted, correct, incorrect } = req.body;
+
+    const quiz = await Quiz.findById(quizId);
+    if (!quiz) return res.status(404).json({ message: 'Quiz not found' });
+
+    const slide = quiz.slides.id(slideId);
+    if (!slide) return res.status(404).json({ message: 'Slide not found' });
+
+    if (attempted) slide.attempts += 1;
+    if (correct) slide.correct += 1;
+    if (incorrect) slide.incorrect += 1;
+
+    await quiz.save();
+    res.json({ message: 'Stats updated successfully' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
     next(error);
   }
 };
@@ -191,5 +178,5 @@ module.exports = {
   deleteQuizById,
   getQuizById,
   questionWiseAnalysis,
-  updateQuestionStats,
+  updateQuestionStats
 };
