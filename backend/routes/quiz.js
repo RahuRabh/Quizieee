@@ -4,7 +4,7 @@ const quizController = require("../controller/quiz");
 const verifyToken = require('../middleware/authMiddleware')
 
 //Routes for handling all Quiz api
-router.post("/createQuiz",  quizController.createQuiz);
+router.post("/createQuiz", quizController.createQuiz);
 // verifyToken - for createQuiz
 
 //Routes for pushing quiz Engagment detials
@@ -26,7 +26,7 @@ router.put("/deleteQuizById/:quizId",  quizController.deleteQuizById);
 // verifyToken - for deleteQuiz
 
 //Routes for editing the quiz
-router.put("/editQuizById/:quizId", verifyToken, quizController.editQuizById);
+router.put("/editQuizById/:quizId", quizController.editQuizById);
 // verifyToken - for editQuizById
 
 module.exports = router;

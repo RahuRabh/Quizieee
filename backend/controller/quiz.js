@@ -33,12 +33,6 @@ const editQuizById = async (req, res, next) => {
   try {
     const { quizId } = req.params;
 
-    // if (!quizId) {
-    //   return res.status(400).json({
-    //     errorMessage: "Bad request. The Quiz id is required",
-    //   });
-    // }
-
     const quiz = await Quiz.findById(quizId);
 
     if (!quiz) {
@@ -47,11 +41,14 @@ const editQuizById = async (req, res, next) => {
       });
     }
 
-    const { questions } = req.body;
+    const { slides } = req.body;
     const updateQuiz = await Quiz.findById(quizId);
-    updateQuiz.questions = questions;
-    await updateQuiz.save();
-    res.json({ message: "Quiz updated" });
+    updateQuiz.slides = slides;
+    const response = await updateQuiz.save();
+    res.json({ 
+      message: "Quiz updated",
+      id: response._id,
+     });
   } catch (error) {
     next(error);
   }
