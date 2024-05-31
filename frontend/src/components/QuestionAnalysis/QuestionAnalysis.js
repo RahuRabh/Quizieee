@@ -37,8 +37,6 @@ export default function QuestionAnalysis() {
   if (!quizAnalysisData) return <div>No data found.</div>;
 
   const { quizName, createdAt, impression, questionAnalysis} = quizAnalysisData;
-
-  console.log("questionAnalysis",questionAnalysis);
   return (
     <div className={styles.homepage}>
       <Navbar />

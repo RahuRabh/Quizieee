@@ -5,7 +5,7 @@ export default function Navbar({ onQuizClick }) {
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.clear();
-    navigate("/auth");
+    navigate("/");
   };
   const handleDashboard = () => {
     navigate("/home/dashboard");

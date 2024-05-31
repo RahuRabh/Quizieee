@@ -12,6 +12,16 @@ export const createQuiz = async (quizData) => {
   }
 };
 
+export const editQuizById = async (id, updateQuizData) => {
+  try{
+    const reqUrl = `${backendUrl}/quiz/editQuizById/${id}`;
+    const response = await axios.put(reqUrl, updateQuizData);
+    return response.data;
+  }catch(error){
+    console.log(error);
+  }
+} 
+
 export const getQuizById = async (id) => {
   try {
     const reqUrl = `${backendUrl}/quiz/playQuiz/${id}`;

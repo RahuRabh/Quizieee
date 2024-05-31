@@ -3,9 +3,10 @@ import styles from "./Auth.module.css";
 import Register from "./Register/Register";
 import Login from "./Login/Login";
 export default function Auth() {
-  const [currentView, setcurrentView] = useState(null);
+  const [currentView, setcurrentView] = useState("register");
   return (
-    <main className={styles.mainContainer}>
+    <div className={styles.overlay}>
+    <div className={styles.mainContainer}>
       <div className={styles.authContainer}>
         <h1 className={styles.title}>QUIZZIE</h1>
         <div className={styles.authButton}>
@@ -15,6 +16,7 @@ export default function Auth() {
         {currentView === "register" && <Register setCurrentView={setcurrentView} />}
         {currentView === "login" && <Login />}
       </div>
-    </main>
+    </div>
+    </div>
   );
 }

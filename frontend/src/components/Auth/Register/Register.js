@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import styles from './Register.module.css';   
 import { registerUser} from "../../../apis/auth"
 export default function Register({ setCurrentView }) {
   const methods = useForm();
+  const [errorMessage, seterrorMessage] = useState()
   const { handleSubmit, register, watch, setError, formState: { errors } } = methods;
   const password = React.useRef({});
   password.current = watch('password', '');
@@ -12,7 +13,7 @@ export default function Register({ setCurrentView }) {
     try {
       const response = await registerUser(data);
       if (response.errorMessage) {
-        setError('email', { type: 'manual', message: response.errorMessage });
+        seterrorMessage(response.errorMessage)
       } else {
         setCurrentView('login');
       }
@@ -71,7 +72,7 @@ export default function Register({ setCurrentView }) {
               })}
             />
           </div>
-          
+          <p className={styles.errorMessage}>{errorMessage}</p>
           <button className={styles.btn} type="submit">Register</button>
         </form>
       </FormProvider>

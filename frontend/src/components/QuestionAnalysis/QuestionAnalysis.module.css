@@ -1,7 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 .homepage {
     display: flex;
+      background-color: #ededed;
+      height: 100vh;
   }
 .container {
     margin-left: 250px;
@@ -20,8 +21,8 @@
   .title {
     font-family: 'Poppins';
     font-weight: 600;
-    font-size: 40px;
-    line-height: 60px;
+    font-size: 2.5rem;
+    line-height: 3.75rem;
     color: #5076FF; 
   }
   
@@ -30,8 +31,8 @@
     color: #FF5D01;
     font-family: 'Poppins';
     font-weight: 600;
-    font-size: 15px;
-    line-height: 20px;
+    font-size: 1rem;
+    line-height: 1.2rem;
     margin-right: 1rem;
   }
   .qscroll{
@@ -53,10 +54,10 @@
   }
   
   .questionTitle {
-    font-size: 30px;
+    font-size: 1.9rem;
     font-weight: 500;
     font-family: 'Poppins';
-    line-height: 30px;
+    line-height: 2rem;
     margin-bottom: 2rem;
   }
   
@@ -67,8 +68,8 @@
   }
   
   .statBox {
-    width: 250px;
-    height: 135px;
+    width: 16rem;
+    height: 8.5rem;
     border-radius: 5px;
     background-color: white;
     text-align: center;
@@ -76,8 +77,8 @@
   
   .statNumber {
     font-family: 'Poppins';
-    font-size: 30px;
-    line-height: 45px;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
     font-weight: 600;
     color: #474444;
   }
@@ -85,8 +86,8 @@
   .statLabel {
     font-family: 'Poppins';
     font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 1rem;
+    line-height: 1.2rem;
     color: #474444;
   }
   .Hrline{

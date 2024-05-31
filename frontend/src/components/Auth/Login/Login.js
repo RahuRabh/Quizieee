@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import styles from './Login.module.css';
 import { loginUser } from "../../../apis/auth"
@@ -7,20 +7,16 @@ import { useNavigate } from 'react-router-dom';
 export default function Login() {
   const navigate = useNavigate();
   const methods = useForm();
-  const { handleSubmit, register,setError ,formState: { errors } } = methods;
+  const [errorMessage, seterrorMessage] = useState()
+  const { handleSubmit, register, setError ,formState: { errors } } = methods;
 
   const onSubmit = async (data) => {
     try {
       const response = await loginUser(data);
-      
       localStorage.setItem("token", response?.token)
       localStorage.setItem("userId", response?.userId)
       if(response.errorMessage){
-        if (response.errorMessage.includes('Invalid email')) {
-          setError('email', { type: 'manual', message: response.errorMessage });
-        } else if (response.errorMessage.includes('Invalid password')) {
-          setError('password', { type: 'manual', message: response.errorMessage });
-        }
+        seterrorMessage(response.errorMessage)
       }
       else{
         navigate("/home/dashboard")
@@ -58,6 +54,7 @@ export default function Login() {
               {...register('password', { required: 'Password is required' })}
             />
           </div>
+          <p className={styles.errorMessage}>{errorMessage}</p>
           <button type="submit">Login</button>
         </form>
       </FormProvider>

@@ -1,92 +1,8 @@
-// import React, { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom';
-// import styles from './Quiz.module.css';
-// import { getQuizById } from "../../apis/quiz";
-// export default function Quiz() {
-//   const { id } = useParams();
-//   const [quiz, setQuiz] = useState(null);
-//   const [currentSlide, setCurrentSlide] = useState(0);
-//   const [selectedOption, setSelectedOption] = useState(null);
-//   const [score, setScore] = useState(0);
-//   const [quizCompleted, setQuizCompleted] = useState(false);
-
-//   useEffect(() => {
-//     const fetchQuiz = async () => {
-//       try {
-//         const response = await getQuizById(id);
-//         console.log("response from playing quiz",response);
-//         setQuiz(response);
-//       } catch (error) {
-//         console.error('Error fetching quiz:', error);
-//       }
-//     };
-//     fetchQuiz();  
-//   }, [id]);
-
-//   const handleOptionClick = (index) => {
-//     setSelectedOption(index);
-//     if (quiz.slides[currentSlide].options[index].isCorrectAnswer) {
-//       setScore((prevScore) => prevScore + 1);
-//     }
-//   };
-
-//   const handleNextClick = () => {
-//     if (currentSlide < quiz.slides.length - 1) {
-//       setCurrentSlide((prevSlide) => prevSlide + 1);
-//       setSelectedOption(null);
-//     } else {
-//       setQuizCompleted(true);
-//     }
-//   };
-
-//   if (!quiz) return <div>Loading...</div>;
-
-//   if (quizCompleted) {
-//     return (
-//       <div className={styles.congratulations}>
-//         <h1>Congratulations!</h1>
-//         <p>Your score: {score}/{quiz.slides.length}</p>
-//       </div>
-//     );
-//   }
-
-//   const currentQuestion = quiz.slides[currentSlide];
-
-//   return (
-//     <div className={styles.container}>
-//       <div className={styles.header}>
-//         <span>{`${currentSlide + 1}/${quiz.slides.length}`}</span>
-//         {currentQuestion.timer && <span>{currentQuestion.timer}</span>}
-//       </div>
-//       <p className={styles.question}>{currentQuestion.question}</p>
-//       <div className={styles.options}>
-//         {currentQuestion.options.map((option, index) => (
-//           <div
-//             key={index}
-//             className={`${styles.option} ${selectedOption === index ? styles.selected : ''}`}
-//             onClick={() => handleOptionClick(index)}
-//           >
-//             {currentQuestion.answerType === 'text' && <span>{option.text}</span>}
-//             {currentQuestion.answerType === 'imageUrl' && <img src={option.image} alt={`Option ${index + 1}`} />}
-//             {currentQuestion.answerType === 'textImageUrl' && (
-//               <div>
-//                 <span>{option.text}</span>
-//                 <img src={option.image} alt={`Option ${index + 1}`} />
-//               </div>
-//             )}
-//           </div>
-//         ))}
-//       </div>
-//       <button onClick={handleNextClick} className={styles.nextButton}>NEXT</button>
-//     </div>
-//   );
-
-// }
-
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './Quiz.module.css';
-import { getQuizById, updateQuestionStats } from "../../apis/quiz";  // Assuming you have an API to update question stats
+import congrats from '../../utils/congrats.png'
+import { getQuizById, updateQuestionStats } from "../../apis/quiz";
 
 export default function Quiz() {
   const { id } = useParams();
@@ -111,34 +27,35 @@ export default function Quiz() {
     fetchQuiz();
   }, [id]);
 
-  useEffect(() => {
-    if (quiz && quiz.type === 'Q&A' && quiz.slides[currentSlide].timer && quiz.slides[currentSlide].timer !== 'off') {
-      const timerDuration = parseInt(quiz.slides[currentSlide].timer.replace('sec', ''));
-      setTimeLeft(timerDuration);
-      timerRef.current = setInterval(() => {
-        setTimeLeft(prevTime => {
-          if (prevTime <= 1) {
-            clearInterval(timerRef.current);
-            handleNextClick();  // Automatically move to next slide when timer runs out
-            return 0;
-          }
-          return prevTime - 1;
-        });
-      }, 1000);
-    } else {
-      clearInterval(timerRef.current);
-      setTimeLeft(null);
-    }
 
-    return () => clearInterval(timerRef.current);
-  }, [quiz, currentSlide]);
+  // useEffect(() => {
+  //   // if (quiz && quiz.type === 'Q&A' && quiz.slides[currentSlide].timer && quiz.slides[currentSlide].timer !== 'off') {
+  //     const timerDuration = parseInt(quiz.slides[0].timer.replace('sec', ''));
+  //     setTimeLeft(timerDuration);
+  //     timerRef.current = setInterval(() => {
+  //       setTimeLeft(prevTime => {
+  //         if (prevTime <= 1) {
+  //           clearInterval(timerRef.current);
+  //           handleNextClick(); 
+  //           return 0;
+  //         }
+  //         return prevTime - 1;
+  //       });
+  //     }, 1000);
+  //   // } else {
+  //     clearInterval(timerRef.current);
+  //     setTimeLeft(null);
+  //   // }
+  //   return () => clearInterval(timerRef.current);
+  // }, [quiz]);
+  
 
   const handleOptionClick = async (index) => {
     setSelectedOption(index);
     const isCorrect = quiz.slides[currentSlide].options[index].isCorrectAnswer;
 
     try {
-      await updateQuestionStats(quiz.quizId, quiz.slides[currentSlide]._id, {  
+      await updateQuestionStats(quiz._id, quiz.slides[currentSlide]._id, {  
         attempted: true,
         correct: isCorrect,
         incorrect: !isCorrect,
@@ -161,45 +78,60 @@ export default function Quiz() {
     }
   };
 
-  if (!quiz) return <div>Loading...</div>;
+  if (!quiz) return <div className={styles.loading}>Loading...</div>;
 
   if (quizCompleted) {
-    return (
-      <div className={styles.congratulations}>
-        <h1>Congratulations!</h1>
-        <p>Your score: {score}/{quiz.slides.length}</p>
+    if(quiz.quizType === "Poll"){
+      return (
+        <div className={styles.congratulations}>
+            <h1 className={styles.hcongrats}>Thank you <br /> for participating in <br /> the poll!</h1>
+        </div>
+      )
+    }else{
+      return (
+        <div className={styles.congratulations}>
+      <h1 className={styles.hcongrats}>Congratulations!</h1>
+            <img src={congrats} alt='congrats' />
+            <p className={styles.hcongrats}>Your score is <span>0{score}/0{quiz.slides.length}</span></p>
       </div>
-    );
+      )
+    }
   }
 
   const currentQuestion = quiz.slides[currentSlide];
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <span>{`${currentSlide + 1}/${quiz.slides.length}`}</span>
-        {quiz.type === 'Q&A' && currentQuestion.timer && currentQuestion.timer !== 'off' && <span>{timeLeft}s</span>}
+    <div className={styles.overlay}>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <span className={styles.quizNumber}>0{`${currentSlide + 1}/0${quiz.slides.length}`}</span>
+          {quiz.type === 'Q&A' && currentQuestion.timer && currentQuestion.timer !== 'off' && (
+            <span className={styles.timer}>{timeLeft}s</span>
+          )}
+        </div>
+        <p className={styles.question}>{currentQuestion.question}</p>
+        <div className={styles.options}>
+          {currentQuestion.options.map((option, index) => (
+            <div
+              key={index}
+              className={`${styles.option} ${selectedOption === index ? styles.selected : ''}`}
+              onClick={() => handleOptionClick(index)}
+            >
+              {currentQuestion.answerType === 'text' && <span>{option.text}</span>}
+              {currentQuestion.answerType === 'imageUrl' && <img src={option.image} alt={`Option ${index + 1}`} />}
+              {currentQuestion.answerType === 'textImageUrl' && (
+                <>
+                {/* <div className={styles.answerType}> */}
+                  <span>{option.text}</span>
+                  <img src={option.image} alt={`Option ${index + 1}`} />
+                {/* </div> */}
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+        <button onClick={handleNextClick} className={styles.nextButton}>NEXT</button>
       </div>
-      <p className={styles.question}>{currentQuestion.question}</p>
-      <div className={styles.options}>
-        {currentQuestion.options.map((option, index) => (
-          <div
-            key={index}
-            className={`${styles.option} ${selectedOption === index ? styles.selected : ''}`}
-            onClick={() => handleOptionClick(index)}
-          >
-            {currentQuestion.answerType === 'text' && <span>{option.text}</span>}
-            {currentQuestion.answerType === 'imageUrl' && <img src={option.image} alt={`Option ${index + 1}`} />}
-            {currentQuestion.answerType === 'textImageUrl' && (
-              <div>
-                <span>{option.text}</span>
-                <img src={option.image} alt={`Option ${index + 1}`} />
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-      <button onClick={handleNextClick} className={styles.nextButton}>NEXT</button>
     </div>
   );
 }

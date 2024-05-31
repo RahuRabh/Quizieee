@@ -8,12 +8,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
 import { getQuizByUser } from '../../apis/quiz'
-
-export default function Analytics() {
+import QuizForm2 from "../QuizForm/QuizForm2";
+export default function Analytics({onEditQuiz}) {
+  
   const [quizAnalytics, setquizAnalytics] = useState([])
   const [quizIdToDelete, setQuizIdToDelete] = useState()
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [showEditQuizForm, setShowEditQuizForm] = useState(false);
+  const [editQuizId, seteditQuizId] = useState()
   const handleDeleteClick = (quizId) => {
     setQuizIdToDelete(quizId)
     setIsModalOpen(true);
@@ -36,17 +39,16 @@ export default function Analytics() {
   useEffect(() => {
     fetchQuiz(); 
   }, [userId]);
-  console.log("quizId:",quizAnalytics);
 
   const convertDate = (dateString) => {
     const date = new Date(dateString)
     const option = {day: 'numeric', month: 'long', year: 'numeric'}
     return date.toLocaleDateString('en-Us', option)
   }
-
   
   const handleShareClick = (quizId) => {
-    const quizUrl = `${'http://localhost:3001/'}quiz/playQuiz/${quizId}`
+    const frontendUrl = process.env.REACT_APP_API_BASE_URL
+    const quizUrl = `${frontendUrl}/quiz/playQuiz/${quizId}`
     navigator.clipboard.writeText(quizUrl)
       .then(() => {
         toast.success('Link copied to clipboard', {
@@ -64,6 +66,11 @@ export default function Analytics() {
         console.error('Failed to copy link:', err);
       });
   };
+
+  // const handleEditQuiz = (quizId) => {
+  //   setShowEditQuizForm(true)
+  //   seteditQuizId(quizId)
+  // }
 
   return (
     <div className={styles.analyticsPage}>
@@ -95,7 +102,7 @@ export default function Analytics() {
                   <td className={styles.tableCell}>{convertDate(quiz.createdAt)}</td>
                   <td className={styles.tableCell}>{quiz.impression}</td>
                   <td className={`${styles.tableCell} ${styles.tableActions}`}>
-                    <img src={edit} alt="edit" className={styles.tableIcon} />
+                    <img onClick={ () => onEditQuiz(quiz.quizId)} src={edit} alt="edit" className={styles.tableIcon} />
                     <img
                       onClick={ () => handleDeleteClick(quiz.quizId)}
                       src={delte}
@@ -116,10 +123,10 @@ export default function Analytics() {
           </table>
         </div>
         {isModalOpen && (
-          
           <DeleteModal onConfirm={fetchQuiz} quizId={quizIdToDelete} onClose={handleCloseModal} />
         )}
       </div>
+      {showEditQuizForm && <QuizForm2 editQuizId={editQuizId} />}
       <ToastContainer toastContainerClassName="customToast" />
       </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import del from '../../utils/del.png';
 import cross from '../../utils/cross.png';
 import styles from './QuizForm2.module.css';
@@ -31,7 +31,7 @@ const useFormValidation = (slides) => {
   return { validate, errors };
 };
 
-export default function QuizForm2({ onSubmit, onCancel, quizType }) {
+export default function QuizForm2({ initialSlides, onSubmit, onCancel, quizType }) {
   const initialOption = { text: '', image: '', isCorrectAnswer: false };
   const initialSlide = { slideNumber: 1, question: '', options: [initialOption, initialOption] };
   const [slides, setSlides] = useState([initialSlide]);
@@ -40,6 +40,14 @@ export default function QuizForm2({ onSubmit, onCancel, quizType }) {
   const [selectedTimer, setSelectedTimer] = useState('off');
   const [userInteracted, setUserInteracted] = useState(false);
   const { validate, errors } = useFormValidation(slides);
+
+  useEffect(() => {
+    if (initialSlides && initialSlides.length > 0) {
+      setSlides(initialSlides);
+      setCurrentSlide(1);
+      setAnswerType(initialSlides[0].answerType || 'text');
+    }
+  }, [initialSlides]);
 
   const handleAddSlide = () => {
     if (slides.length < 5) {
