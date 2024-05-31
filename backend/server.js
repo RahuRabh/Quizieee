@@ -23,8 +23,8 @@ mongoose
 
 app.use("/api/auth", auth);
 app.use("/api/quiz", quiz);
-app.use("/*", (req, res) => {
-  res.status(404).json({ errorMessage: "Route Not found" });
+app.use("/", (req, res) => {
+  res.status(404).json({ errorMessage: "We are live" });
 });
 app.use("/", errorHandler)
 
