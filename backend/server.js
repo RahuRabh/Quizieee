@@ -21,10 +21,10 @@ mongoose
   .then(() => console.log("MONGO DB CONNECTED"))
   .catch((err) => console.log(err));
 
-app.use("/api/auth", auth);
-app.use("/api/quiz", quiz);
-app.use("/", (req, res) => {
-  res.status(404).json({ errorMessage: "We are live" });
+app.use("/auth", auth);
+app.use("/quiz", quiz);
+app.use("/*", (req, res) => {
+  res.status(404).json({ errorMessage: "Route not found" });
 });
 app.use("/", errorHandler)
 
