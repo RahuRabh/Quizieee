@@ -4,6 +4,7 @@ const optionSchema = new mongoose.Schema({
   text: {type: String},
   image: {type: String},
   isCorrectAnswer: {type: Boolean, default: false},
+  clicks: {type: Number, default: 0}
 })
 const slideSchema = new mongoose.Schema({
   question: {type: String, required: true},

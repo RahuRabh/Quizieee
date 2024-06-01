@@ -95,20 +95,40 @@ const questionWiseAnalysis = async (req, res, next) => {
   const quizes = await Quiz.findById(quizId)
 
   const quizName = quizes.name
+  const quizType = quizes.type
   const createdAt = quizes.createdAt
   const impression = quizes.impressions
-  const questionAnalysis = quizes.slides.map(slide => ({
+
+  // if(quizType === "Poll"){
+    // const optionsClicks = quizes.slides.map(slide => ({
+    //   // return {
+    //     questionName: slide.question,
+    //     options: slide.options.map(option => ({
+    //       text: option.text,
+    //       clicks: option.clicks,
+    //     }))
+    //   // }
+    // }))
+    // res.json({quizName,quizType, createdAt, impression, optionsClicks})
+  // } else {
+    const questionAnalysis = quizes.slides.map(slide => ({
       questionName: slide.question,
       attempts: slide.attempts,
       correct: slide.correct,
       incorrect: slide.incorrect,
+      options: slide.options.map(option => ({
+        text: option.text,
+        clicks: option.clicks,
+      }))
     }))
-  res.json({
-    quizName,
-    createdAt,
-    impression,
-    questionAnalysis
-  })
+    res.json({
+      quizName,
+      quizType,
+      createdAt,
+      impression,
+      questionAnalysis
+    })
+  // }
 }
 
 //logic for getting quiz by its id previous
@@ -149,7 +169,7 @@ const deleteQuizById = async (req, res, next) => {
 const updateQuestionStats = async (req, res, next) => {
   try {
     const { quizId, slideId } = req.params;
-    const { attempted, correct, incorrect } = req.body;
+    const { optionIndex, attempted, correct, incorrect } = req.body;
 
     const quiz = await Quiz.findById(quizId);
     if (!quiz) return res.status(404).json({ message: 'Quiz not found' });
@@ -157,9 +177,13 @@ const updateQuestionStats = async (req, res, next) => {
     const slide = quiz.slides.id(slideId);
     if (!slide) return res.status(404).json({ message: 'Slide not found' });
 
-    if (attempted) slide.attempts += 1;
-    if (correct) slide.correct += 1;
-    if (incorrect) slide.incorrect += 1;
+    if (optionIndex !== undefined) {
+      slide.options[optionIndex].clicks += 1;
+    } else {
+      if (attempted) slide.attempts += 1;
+      if (correct) slide.correct += 1;
+      if (incorrect) slide.incorrect += 1;
+    }
 
     await quiz.save();
     res.json({ message: 'Stats updated successfully' });
