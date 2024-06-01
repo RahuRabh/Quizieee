@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./QuizSuccess.module.css";
-import cross from "../../utils/cross.png";
+import cross from "../../assets/cross.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function SuccessPopup({ onClose }) {

@@ -51,6 +51,7 @@
   
   .questions {
     margin-bottom: 2rem;
+    width: 100%;
   }
   
   .questionTitle {
@@ -91,6 +92,7 @@
     color: #474444;
   }
   .Hrline{
-    width: 880px;
+    width: 100%;
     border: 2px solid #D7D7D7;
+    margin-top: 20px;
   }

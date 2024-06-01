@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar/Navbar";
 import styles from "./QuestionAnalysis.module.css";
-import { questionWiseAnalysis } from "../../apis/quiz";
 import { useLocation } from "react-router-dom";
+
+import Loader from "../../components/Loader/Loader"
+import Navbar from "../../components/Navbar/Navbar";
+
+import { questionWiseAnalysis } from "../../apis/quiz";
+
+import {convertDate} from '../../utils/convertDate'
+import { formatNumber } from "../../utils/formatNumber";
+
 
 export default function QuestionAnalysis() {
   const location = useLocation();
@@ -27,16 +34,11 @@ export default function QuestionAnalysis() {
     fetchQuiz();
   }, [quizId]);
 
-  const convertDate = (dateString) => {
-    const date = new Date(dateString);
-    const option = { day: "numeric", month: "long", year: "numeric" };
-    return date.toLocaleDateString("en-US", option);
-  };
-
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div><Loader /></div>;
   if (!quizAnalysisData) return <div>No data found.</div>;
 
-  const { quizName, createdAt, impression, questionAnalysis} = quizAnalysisData;
+  const { quizName, quizType, createdAt, impression, questionAnalysis } =
+    quizAnalysisData;
   return (
     <div className={styles.homepage}>
       <Navbar />
@@ -45,7 +47,7 @@ export default function QuestionAnalysis() {
           <h1 className={styles.title}>{quizName} Question Analysis</h1>
           <div className={styles.info}>
             <p>{convertDate(createdAt)}</p>
-            <p>Impressions: {impression}</p>
+            <p>Impressions: {formatNumber(impression)}</p>
           </div>
         </div>
         <div className={styles.qscroll}>
@@ -55,21 +57,32 @@ export default function QuestionAnalysis() {
                 <h2 className={styles.questionTitle}>
                   Q{index + 1} {question.questionName}?
                 </h2>
-                <div className={styles.grid}>
-                  <div className={styles.statBox}>
-                    <p className={styles.statNumber}>{question.attempts}</p>
-                    <p className={styles.statLabel}>people Attempted the question</p>
-                  </div>
-                  <div className={styles.statBox}>
-                    <p className={styles.statNumber}>{question.correct}</p>
-                    <p className={styles.statLabel}>people Answered Correctly</p>
-                  </div>
-                  <div className={styles.statBox}>
-                    <p className={styles.statNumber}>{question.incorrect}</p>
-                    <p className={styles.statLabel}>people Answered Incorrectly</p>
-                  </div>
+                {quizType === "Poll" ? (
+                  <div className={styles.grid}>
+                  {question.options.map((option, optionIndex) => (
+                    <div key={optionIndex} className={styles.statBox}>
+                      <p className={styles.statNumber}>{option.clicks}</p>
+                      <p className={styles.statLabel}>{option.text}</p>
+                    </div>
+                  ))}
                 </div>
-                <hr className={styles.Hrline} />
+                ): (
+                  <div className={styles.grid}>
+                    <div className={styles.statBox}>
+                       <p className={styles.statNumber}>{question.attempts}</p>
+                       <p className={styles.statLabel}>people Attempted the question</p>
+                     </div>
+                    <div className={styles.statBox}>
+                       <p className={styles.statNumber}>{question.correct}</p>
+                       <p className={styles.statLabel}>people Answered Correctly</p>
+                     </div>
+                     <div className={styles.statBox}>
+                       <p className={styles.statNumber}>{question.incorrect}</p>
+                       <p className={styles.statLabel}>people Answered Incorrectly</p>
+                     </div>
+                 </div>
+                )}
+                   <hr className={styles.Hrline} />
               </div>
             ))}
           </div>

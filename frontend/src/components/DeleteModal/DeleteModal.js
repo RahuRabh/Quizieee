@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./DeleteModal.module.css";
+
 import { deleteQuizById } from "../../apis/quiz";
+
 const DeleteModal = ({ onClose, quizId, onConfirm }) => {
   const handleConfirmDelete = async () => {
     try {

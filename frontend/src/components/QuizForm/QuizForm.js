@@ -42,11 +42,9 @@ export default function QuizForm({ onCancel, onSuccess, quizData }) {
 
     try {
       if(quizDetails.id){
-        console.log("yaha kyu");
         const response = await editQuizById(quizData.id, quizData)
         localStorage.setItem("QuizId", response.id)
       } else{
-        console.log("yaha kyu nahi");
         const response = await createQuiz(quizData);
         localStorage.setItem("QuizId", response.id)
       }

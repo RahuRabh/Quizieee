@@ -51,23 +51,20 @@
 .options {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: 50px;
   margin-bottom: 2rem;
   margin-left: 8rem;
 }
 
 .option {
   width: 320px;
-  height: 120px;
   border-radius: 10px;
   cursor: pointer;
-  width: 320px;
-  height: 120px;
 }
 
-.option span {
-  /* width: 320px;
-  height: 120px; */
+.forText {
+  width: 320px;
+  height: 120px;
   background-color: #f0f0f0;
   display: flex;
   align-items: center;
@@ -79,21 +76,39 @@
   color: #000000;
 }
 
-.option img {
-  /* width: 320px;
-  height: 130px; */
-  object-fit: contain;
+.forImage {
+  width: 320px;
+  height: 130px;
+  object-fit: cover;
+}
+
+.forTextImage{
+  width: 320px;
+  display: flex;
+  flex-direction: row;
+  background-color: #F0F0F0;
+}
+.forTextImage span{
+  width: 160px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 40px;
+  color: #000000;
+  margin-left: 10px;
+  
+}
+.forTextImage img{
+  width: 160px;
+  height: 120px;
+  object-fit: cover;
 }
 
 .option.selected {
   border: 5px solid #5076ff;
-}
-
-.answerType {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 320px;
-  height: 120px;
 }
 
 .nextButton {
@@ -103,15 +118,19 @@
   color: white;
   border-radius: 10px;
   cursor: pointer;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-left: 35%;
+  margin-top: 10%;
+}
+
+.congratsOverlay{
+  position: fixed;
+  inset: 0;
+  background: #041325;
 }
 
 .congratulations {
   width: 1066px;
-  height: 600px;
+  height: 640px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -147,90 +166,92 @@
   color: #60b84b;
 }
 
-.loading {
-  text-align: center;
-  font-size: 1.5rem;
-  margin-top: 2rem;
-}
-
 
 /* For mobile devices */
 @media (max-width: 768px) {
-
   .container {
     width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
   }
-
   .header {
     align-items: flex-start;
-    padding-left: 20px;
-    padding-right: 20px;
   }
-
   .quizNumber {
     font-size: 1.3rem;
     line-height: 1.8rem;
   }
-
   .timer {
     font-size: 1.3rem;
     line-height: 1.8rem;
   }
-
   .question {
     width: 22rem;
     font-size: 1.5rem;
     line-height: 2rem;
     text-align: center;
   }
-
   .options {
-  margin-top: 10px;
-  height: 58%;
-  width: 100%;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-left: 5px;
+    flex: 1;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 5px;
   }
-
   .option {
     width: 320px;
-    height: 100px;
-    border-radius: 20px;
+    cursor: pointer;
   }
-
-  .option span {
+  .forText {
+    border-radius: 10px;
     width: 320px;
-    height: 80px;
-    font-size: 1.2rem;
-    line-height: 1.8rem;
-    margin-bottom: 1px;
+    min-height: 40px;
+    background-color: #f0f0f0;
+    align-items: center;
+    font-family: "Poppins";
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 20px;
+    color: #000000;
   }
-
-  .option img {
+  .forImage {
     width: 320px;
-    height: 100px;
+    min-height: 100px;
+    border-radius: 5px;
     object-fit: cover;
-    overflow: hidden;
   }
-  /* .answerType{
+  .forTextImage {
+    width: 320px;
+    min-height: 100px; 
     display: flex;
     flex-direction: row;
-  } */
-
+    background-color: #F0F0F0;
+  }
+  .forTextImage span {
+    width: 160px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    font-family: "Poppins";
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 40px;
+    color: #000000;
+    margin-left: 10px;
+  }
+  .forTextImage img {
+    width: 160px;
+    height: 120px;
+    object-fit: cover;
+  }
   .nextButton {
     font-size: 16px;
-    margin-top: 3.8rem;
+    margin-bottom: 1rem;
     margin-left: 2.5rem;
     cursor: pointer;
   }
-
   .congratulations {
     display: flex;
     align-items: center;
@@ -240,19 +261,16 @@
     padding: 10px;
     margin-left: 0;
   }
-
   .hcongrats {
     font-size: 30px;
     line-height: 45px;
   }
-
   .congratulations img {
     width: 200px;
     height: 200px;
   }
-
   .congratulations p {
     font-size: 24px;
     line-height: 36px;
   }
-} 
+}

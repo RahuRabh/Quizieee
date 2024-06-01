@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Analytics.module.css";
-import share from "../../utils/share.png";
-import delte from "../../utils/del.png";
-import edit from "../../utils/uil_edit.png";
-import DeleteModal from "../DeleteModal/DeleteModal";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import share from "../../assets/share.png";
+import delte from "../../assets/del.png";
+import edit from "../../assets/uil_edit.png";
+
+import { convertDate } from "../../utils/convertDate";
+import { formatNumber } from "../../utils/formatNumber";
+
+import DeleteModal from "../DeleteModal/DeleteModal";
+
 import { useNavigate } from "react-router-dom";
 import { getQuizByUser } from '../../apis/quiz'
+
 import QuizForm2 from "../QuizForm/QuizForm2";
+
 export default function Analytics({onEditQuiz}) {
   
+  const navigate = useNavigate();
   const [quizAnalytics, setquizAnalytics] = useState([])
   const [quizIdToDelete, setQuizIdToDelete] = useState()
-  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [showEditQuizForm, setShowEditQuizForm] = useState(false);
-  const [editQuizId, seteditQuizId] = useState()
+  const [showEditQuizForm] = useState(false);
+  const [editQuizId] = useState()
   const handleDeleteClick = (quizId) => {
     setQuizIdToDelete(quizId)
     setIsModalOpen(true);
@@ -39,12 +47,6 @@ export default function Analytics({onEditQuiz}) {
   useEffect(() => {
     fetchQuiz(); 
   }, [userId]);
-
-  const convertDate = (dateString) => {
-    const date = new Date(dateString)
-    const option = {day: 'numeric', month: 'long', year: 'numeric'}
-    return date.toLocaleDateString('en-Us', option)
-  }
   
   const handleShareClick = (quizId) => {
     const frontendUrl = process.env.REACT_APP_API_BASE_URL
@@ -66,11 +68,6 @@ export default function Analytics({onEditQuiz}) {
         console.error('Failed to copy link:', err);
       });
   };
-
-  // const handleEditQuiz = (quizId) => {
-  //   setShowEditQuizForm(true)
-  //   seteditQuizId(quizId)
-  // }
 
   return (
     <div className={styles.analyticsPage}>
@@ -100,7 +97,7 @@ export default function Analytics({onEditQuiz}) {
                   <td className={styles.tableCell}>{index +1}</td>
                   <td className={styles.tableCell}>{quiz.name}</td>
                   <td className={styles.tableCell}>{convertDate(quiz.createdAt)}</td>
-                  <td className={styles.tableCell}>{quiz.impression}</td>
+                  <td className={styles.tableCell}>{formatNumber(quiz.impression)}</td>
                   <td className={`${styles.tableCell} ${styles.tableActions}`}>
                     <img onClick={ () => onEditQuiz(quiz.quizId)} src={edit} alt="edit" className={styles.tableIcon} />
                     <img

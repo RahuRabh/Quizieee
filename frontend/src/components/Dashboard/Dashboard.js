@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
+
 import styles from "./Dashboard.module.css";
-import eye from "../../utils/eye.png";
+import eye from "../../assets/eye.png";
+
 import { getQuizByUser } from '../../apis/quiz';
+
+import { formatNumber } from '../../utils/formatNumber'
+import { convertDate} from '../../utils/convertDate'
+
+import Loader from '../../components/Loader/Loader'
 
 export default function Dashboard() {
   const [quizData, setQuizData] = useState(null);
@@ -20,13 +27,7 @@ export default function Dashboard() {
     fetchQuiz();
   }, [userId]);
 
-  const convertDate = (dateString) => {
-    const date = new Date(dateString);
-    const option = { day: "numeric", month: "long", year: "numeric" };
-    return date.toLocaleDateString("en-US", option);
-  };
-
-  if (!quizData) return <div>Loading...</div>;
+  if (!quizData) return <div><Loader /></div>;
 
   const { dashboardData, quizAnalytics } = quizData;
 
@@ -44,7 +45,7 @@ export default function Dashboard() {
           <p className={styles.text}>Created</p>
         </div>
         <div className={styles.impressions}>
-          <p className={styles.no}>{dashboardData.totalImpression}</p>
+          <p className={styles.no}>{formatNumber(dashboardData.totalImpression)}</p>
           <p className={styles.title}>Total</p>
           <p className={styles.text}>Impressions</p>
         </div>
@@ -57,7 +58,7 @@ export default function Dashboard() {
             <div className={styles.container}>
               <p className={styles.name}>{quiz.name}</p>
               <p className={styles.eye}>
-                {quiz.impression}
+                {formatNumber(quiz.impression)}
               </p>
               <img className={styles.eyeIcon} alt="eye" src={eye} />
               </div>

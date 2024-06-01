@@ -1,7 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
-import styles from './Quiz.module.css';
-import congrats from '../../utils/congrats.png'
+import React, { useEffect, useState, useRef } from "react";
+import { useParams } from "react-router-dom";
+
+import styles from "./Quiz.module.css";
+import congrats from "../../assets/congrats.png";
+
+import Loader from "../../components/Loader/Loader";
+
 import { getQuizById, updateQuestionStats } from "../../apis/quiz";
 
 export default function Quiz() {
@@ -18,54 +22,35 @@ export default function Quiz() {
     const fetchQuiz = async () => {
       try {
         const response = await getQuizById(id);
-        console.log("response from playing quiz", response);
         setQuiz(response);
       } catch (error) {
-        console.error('Error fetching quiz:', error);
+        console.error("Error fetching quiz:", error);
       }
     };
     fetchQuiz();
   }, [id]);
-
-
-  // useEffect(() => {
-  //   // if (quiz && quiz.type === 'Q&A' && quiz.slides[currentSlide].timer && quiz.slides[currentSlide].timer !== 'off') {
-  //     const timerDuration = parseInt(quiz.slides[0].timer.replace('sec', ''));
-  //     setTimeLeft(timerDuration);
-  //     timerRef.current = setInterval(() => {
-  //       setTimeLeft(prevTime => {
-  //         if (prevTime <= 1) {
-  //           clearInterval(timerRef.current);
-  //           handleNextClick(); 
-  //           return 0;
-  //         }
-  //         return prevTime - 1;
-  //       });
-  //     }, 1000);
-  //   // } else {
-  //     clearInterval(timerRef.current);
-  //     setTimeLeft(null);
-  //   // }
-  //   return () => clearInterval(timerRef.current);
-  // }, [quiz]);
-  
 
   const handleOptionClick = async (index) => {
     setSelectedOption(index);
     const isCorrect = quiz.slides[currentSlide].options[index].isCorrectAnswer;
 
     try {
-      await updateQuestionStats(quiz._id, quiz.slides[currentSlide]._id, {  
-        attempted: true,
-        correct: isCorrect,
-        incorrect: !isCorrect,
-      });
+      if (quiz.quizType === "Poll") {
+        await updateQuestionStats(quiz.quizId, quiz.slides[currentSlide]._id, {
+          optionIndex: index,
+        });
+      } else {
+        await updateQuestionStats(quiz.quizId, quiz.slides[currentSlide]._id, {
+          attempted: true,
+          correct: isCorrect,
+          incorrect: !isCorrect,
+        });
+        if (isCorrect) {
+          setScore((prevScore) => prevScore + 1);
+        }
+      }
     } catch (error) {
-      console.error('Error updating question stats:', error);
-    }
-
-    if (isCorrect) {
-      setScore((prevScore) => prevScore + 1);
+      console.error("Error updating question stats:", error);
     }
   };
 
@@ -78,23 +63,58 @@ export default function Quiz() {
     }
   };
 
-  if (!quiz) return <div className={styles.loading}>Loading...</div>;
+  useEffect(() => {
+    if (quiz && quiz.slides[currentSlide].timer !== "off") {
+      const time = parseInt(quiz.slides[currentSlide].timer);
+      setTimeLeft(time);
+      timerRef.current = setInterval(() => {
+        setTimeLeft((prevTime) => {
+          if (prevTime === 1) {
+            clearInterval(timerRef.current);
+            handleNextClick();
+          }
+          return prevTime - 1;
+        });
+      }, 1000);
+    }
+    return () => {
+      clearInterval(timerRef.current);
+    };
+  }, [quiz, currentSlide]);
+
+  if (!quiz)
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
 
   if (quizCompleted) {
-    if(quiz.quizType === "Poll"){
+    if (quiz.quizType === "Poll") {
       return (
-        <div className={styles.congratulations}>
-            <h1 className={styles.hcongrats}>Thank you <br /> for participating in <br /> the poll!</h1>
+        <div className={styles.congratsOverlay}>
+          <div className={styles.congratulations}>
+            <h1 className={styles.hcongrats}>
+              Thank you <br /> for participating in <br /> the poll!
+            </h1>
+          </div>
         </div>
-      )
-    }else{
+      );
+    } else {
       return (
-        <div className={styles.congratulations}>
-      <h1 className={styles.hcongrats}>Congratulations!</h1>
-            <img src={congrats} alt='congrats' />
-            <p className={styles.hcongrats}>Your score is <span>0{score}/0{quiz.slides.length}</span></p>
-      </div>
-      )
+        <div className={styles.congratsOverlay}>
+          <div className={styles.congratulations}>
+            <h1 className={styles.hcongrats}>Congratulations!</h1>
+            <img src={congrats} alt="congrats" />
+            <p className={styles.hcongrats}>
+              Your score is{" "}
+              <span>
+                0{score}/0{quiz.slides.length}
+              </span>
+            </p>
+          </div>
+        </div>
+      );
     }
   }
 
@@ -104,9 +124,11 @@ export default function Quiz() {
     <div className={styles.overlay}>
       <div className={styles.container}>
         <div className={styles.header}>
-          <span className={styles.quizNumber}>0{`${currentSlide + 1}/0${quiz.slides.length}`}</span>
-          {quiz.type === 'Q&A' && currentQuestion.timer && currentQuestion.timer !== 'off' && (
-            <span className={styles.timer}>{timeLeft}s</span>
+          <span className={styles.quizNumber}>
+            0{`${currentSlide + 1}/0${quiz.slides.length}`}
+          </span>
+          {quiz.slides[currentSlide].timer !== "off" && (
+            <span className={styles.timer}>00:{timeLeft}s</span>
           )}
         </div>
         <p className={styles.question}>{currentQuestion.question}</p>
@@ -114,23 +136,33 @@ export default function Quiz() {
           {currentQuestion.options.map((option, index) => (
             <div
               key={index}
-              className={`${styles.option} ${selectedOption === index ? styles.selected : ''}`}
+              className={`${styles.option} ${
+                selectedOption === index ? styles.selected : ""
+              }`}
               onClick={() => handleOptionClick(index)}
             >
-              {currentQuestion.answerType === 'text' && <span>{option.text}</span>}
-              {currentQuestion.answerType === 'imageUrl' && <img src={option.image} alt={`Option ${index + 1}`} />}
-              {currentQuestion.answerType === 'textImageUrl' && (
-                <>
-                {/* <div className={styles.answerType}> */}
+              {currentQuestion.answerType === "text" && (
+                <span className={styles.forText}>{option.text}</span>
+              )}
+              {currentQuestion.answerType === "imageUrl" && (
+                <img
+                  className={styles.forImage}
+                  src={option.image}
+                  alt={`Option ${index + 1}`}
+                />
+              )}
+              {currentQuestion.answerType === "textImageUrl" && (
+                <div className={styles.forTextImage}>
                   <span>{option.text}</span>
                   <img src={option.image} alt={`Option ${index + 1}`} />
-                {/* </div> */}
-                </>
+                </div>
               )}
             </div>
           ))}
         </div>
-        <button onClick={handleNextClick} className={styles.nextButton}>NEXT</button>
+        <button onClick={handleNextClick} className={styles.nextButton}>
+          {currentSlide === quiz.slides.length - 1 ? "SUBMIT" : "NEXT"}
+        </button>
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import del from '../../utils/del.png';
-import cross from '../../utils/cross.png';
-import styles from './QuizForm2.module.css';
-import { ToastContainer, toast } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css"
+import React, { useEffect, useState } from "react";
+import del from "../../assets/del.png";
+import cross from "../../assets/cross.png";
+import styles from "./QuizForm2.module.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const useFormValidation = (slides) => {
-  const [errors, setErrors] = useState([]);
+  const [errors] = useState([]);
 
   const validate = () => {
     let validationErrors = [];
@@ -16,12 +16,16 @@ const useFormValidation = (slides) => {
       slide.options.forEach((option, optionIndex) => {
         if (!option.text && !option.image) {
           validationErrors.push(
-            `Slide ${index + 1}, Option ${optionIndex + 1}: Option text or image is required.`
+            `Slide ${index + 1}, Option ${
+              optionIndex + 1
+            }: Option text or image is required.`
           );
         }
       });
       if (!slide.options.some((option) => option.isCorrectAnswer)) {
-        validationErrors.push(`Slide ${index + 1}: Correct answer is required.`);
+        validationErrors.push(
+          `Slide ${index + 1}: Correct answer is required.`
+        );
       }
     });
     validationErrors.forEach((error) => toast.error(error));
@@ -31,13 +35,24 @@ const useFormValidation = (slides) => {
   return { validate, errors };
 };
 
-export default function QuizForm2({ initialSlides, onSubmit, onCancel, quizType }) {
-  const initialOption = { text: '', image: '', isCorrectAnswer: false };
-  const initialSlide = { slideNumber: 1, question: '', options: [initialOption, initialOption] };
-  const [slides, setSlides] = useState([initialSlide]);
+export default function QuizForm2({
+  initialSlides,
+  onSubmit,
+  onCancel,
+  quizType,
+}) {
+  const initialOption = { text: "", image: "", isCorrectAnswer: false };
+  const initialSlide = {
+    slideNumber: 1,
+    question: "",
+    options: [initialOption, initialOption],
+  };
+  const [slides, setSlides] = useState(
+    initialSlides.length > 0 ? initialSlides : [initialSlide]
+  );
   const [currentSlide, setCurrentSlide] = useState(1);
-  const [answerType, setAnswerType] = useState('text');
-  const [selectedTimer, setSelectedTimer] = useState('off');
+  const [answerType, setAnswerType] = useState("text");
+  const [selectedTimer, setSelectedTimer] = useState("off");
   const [userInteracted, setUserInteracted] = useState(false);
   const { validate, errors } = useFormValidation(slides);
 
@@ -45,20 +60,26 @@ export default function QuizForm2({ initialSlides, onSubmit, onCancel, quizType 
     if (initialSlides && initialSlides.length > 0) {
       setSlides(initialSlides);
       setCurrentSlide(1);
-      setAnswerType(initialSlides[0].answerType || 'text');
+      setAnswerType(initialSlides[0].answerType || "text");
     }
   }, [initialSlides]);
 
   const handleAddSlide = () => {
     if (slides.length < 5) {
-      const newSlide = { ...initialSlide, slideNumber: slides.length + 1, answerType };
+      const newSlide = {
+        ...initialSlide,
+        slideNumber: slides.length + 1,
+        answerType,
+      };
       setSlides([...slides, newSlide]);
     }
   };
 
   const handleRemoveSlide = (index) => {
     const updatedSlides = slides.filter((_, i) => i !== index);
-    setSlides(updatedSlides.map((slide, i) => ({ ...slide, slideNumber: i + 1 })));
+    setSlides(
+      updatedSlides.map((slide, i) => ({ ...slide, slideNumber: i + 1 }))
+    );
     setCurrentSlide(1);
   };
 
@@ -71,12 +92,14 @@ export default function QuizForm2({ initialSlides, onSubmit, onCancel, quizType 
   const handleAnswerTypeChange = (type) => {
     setAnswerType(type);
     setUserInteracted(true);
-      const updatedSlides = slides.map(slide => ({
-        ...slide,
-        answerType: type,
-        options: slide.options ? slide.options.map(() => ({ ...initialOption })) : []
-      }));
-      setSlides(updatedSlides);
+    const updatedSlides = slides.map((slide) => ({
+      ...slide,
+      answerType: type,
+      options: slide.options
+        ? slide.options.map(() => ({ ...initialOption }))
+        : [],
+    }));
+    setSlides(updatedSlides);
     // }
   };
 
@@ -84,7 +107,7 @@ export default function QuizForm2({ initialSlides, onSubmit, onCancel, quizType 
     const updatedSlides = [...slides];
     updatedSlides[slideIndex].options[optionIndex] = {
       ...updatedSlides[slideIndex].options[optionIndex],
-      [field]: e.target.value
+      [field]: e.target.value,
     };
     setSlides(updatedSlides);
   };
@@ -105,10 +128,12 @@ export default function QuizForm2({ initialSlides, onSubmit, onCancel, quizType 
 
   const handleCorrectAnswerChange = (slideIndex, optionIndex) => {
     const updatedSlides = [...slides];
-    updatedSlides[slideIndex].options = updatedSlides[slideIndex].options.map((option, idx) => ({
-      ...option,
-      isCorrectAnswer: idx === optionIndex
-    }));
+    updatedSlides[slideIndex].options = updatedSlides[slideIndex].options.map(
+      (option, idx) => ({
+        ...option,
+        isCorrectAnswer: idx === optionIndex,
+      })
+    );
     setSlides(updatedSlides);
   };
 
@@ -126,21 +151,25 @@ export default function QuizForm2({ initialSlides, onSubmit, onCancel, quizType 
       }));
       onSubmit(quizData);
     } else {
-      errors.forEach(error => alert(error));
+      errors.forEach((error) => alert(error));
     }
   };
 
   return (
     <div className={styles.overlay}>
-
       <div className={styles.container}>
         <div className={styles.slides}>
           <div className={styles.slide}>
             {slides.map((slide, index) => (
-              <div key={slide.slideNumber} className={styles.slideButtonContainer}>
+              <div
+                key={slide.slideNumber}
+                className={styles.slideButtonContainer}
+              >
                 <button
                   key={slide.slideNumber}
-                  className={`${styles.slideButton} ${slide.slideNumber === currentSlide ? styles.active : ""}`}
+                  className={`${styles.slideButton} ${
+                    slide.slideNumber === currentSlide ? styles.active : ""
+                  }`}
                   onClick={() => setCurrentSlide(slide.slideNumber)}
                 >
                   {slide.slideNumber}
@@ -182,8 +211,8 @@ export default function QuizForm2({ initialSlides, onSubmit, onCancel, quizType 
                 type="radio"
                 name="optionType"
                 value="text"
-                checked={userInteracted && answerType === 'text'}
-                onChange={() => handleAnswerTypeChange('text')}
+                checked={userInteracted && answerType === "text"}
+                onChange={() => handleAnswerTypeChange("text")}
                 disabled={slides.length > 1}
               />
               Text
@@ -193,8 +222,8 @@ export default function QuizForm2({ initialSlides, onSubmit, onCancel, quizType 
                 type="radio"
                 name="optionType"
                 value="imageUrl"
-                checked={userInteracted && answerType === 'imageUrl'}
-                onChange={() => handleAnswerTypeChange('imageUrl')}
+                checked={userInteracted && answerType === "imageUrl"}
+                onChange={() => handleAnswerTypeChange("imageUrl")}
                 disabled={slides.length > 1}
               />
               Image URL
@@ -204,8 +233,8 @@ export default function QuizForm2({ initialSlides, onSubmit, onCancel, quizType 
                 type="radio"
                 name="optionType"
                 value="textImageUrl"
-                checked={userInteracted && answerType === 'textImageUrl'}
-                onChange={() => handleAnswerTypeChange('textImageUrl')}
+                checked={userInteracted && answerType === "textImageUrl"}
+                onChange={() => handleAnswerTypeChange("textImageUrl")}
                 disabled={slides.length > 1}
               />
               Text & Image URL
@@ -215,65 +244,117 @@ export default function QuizForm2({ initialSlides, onSubmit, onCancel, quizType 
         <div className={styles.answerOption}>
           <div>
             {slides[currentSlide - 1].options.map((option, optionIndex) => (
-              <div key={optionIndex} className={`${styles.answers} ${option.isCorrectAnswer ? styles.correctAnswer : ''}`}>
+              <div
+                key={optionIndex}
+                className={`${styles.answers} ${
+                  option.isCorrectAnswer ? styles.correctAnswer : ""
+                }`}
+              >
                 <input
                   type="radio"
                   name={`correctOption-${currentSlide}`}
                   checked={option.isCorrectAnswer}
-                  onChange={() => handleCorrectAnswerChange(currentSlide - 1, optionIndex)}
+                  onChange={() =>
+                    handleCorrectAnswerChange(currentSlide - 1, optionIndex)
+                  }
                   className={styles.answerButton}
                 />
-                {(answerType === 'text' || answerType === 'textImageUrl') && (
+                {(answerType === "text" || answerType === "textImageUrl") && (
                   <input
                     type="text"
                     placeholder="Text"
                     value={option.text}
-                    onChange={(e) => handleOptionChange(e, currentSlide - 1, optionIndex, 'text')}
+                    onChange={(e) =>
+                      handleOptionChange(
+                        e,
+                        currentSlide - 1,
+                        optionIndex,
+                        "text"
+                      )
+                    }
                     className={styles.answerText}
                   />
                 )}
-                {(answerType === 'imageUrl' || answerType === 'textImageUrl') && (
+                {(answerType === "imageUrl" ||
+                  answerType === "textImageUrl") && (
                   <input
                     type="text"
                     placeholder="Image URL"
                     value={option.image}
-                    onChange={(e) => handleOptionChange(e, currentSlide - 1, optionIndex, 'image')}
+                    onChange={(e) =>
+                      handleOptionChange(
+                        e,
+                        currentSlide - 1,
+                        optionIndex,
+                        "image"
+                      )
+                    }
                     className={styles.answerText}
                   />
                 )}
-                {slides[currentSlide - 1].options.length > 2 && optionIndex > 1 && (
-                  <img className={styles.deletebtn} src={del} alt='delete' onClick={() => handleRemoveOption(currentSlide - 1, optionIndex)} />
-                )}
+                {slides[currentSlide - 1].options.length > 2 &&
+                  optionIndex > 1 && (
+                    <img
+                      className={styles.deletebtn}
+                      src={del}
+                      alt="delete"
+                      onClick={() =>
+                        handleRemoveOption(currentSlide - 1, optionIndex)
+                      }
+                    />
+                  )}
               </div>
             ))}
             {slides[currentSlide - 1].options.length < 4 && (
-              <button type="button" onClick={() => handleAddOption(currentSlide - 1)} className={styles.addOptionButton}>
+              <button
+                type="button"
+                onClick={() => handleAddOption(currentSlide - 1)}
+                className={styles.addOptionButton}
+              >
                 Add Option
               </button>
             )}
           </div>
-          {quizType !== 'Poll' && (
+          {quizType !== "Poll" && (
             <div className={styles.timerOptions}>
               <div className={styles.timerTitle}>Timer</div>
-              <div className={`${styles.timer} ${selectedTimer === 'off' ? styles.selectedTimer : ''}`} onClick={() => setSelectedTimer('off')}>
+              <div
+                className={`${styles.timer} ${
+                  selectedTimer === "off" ? styles.selectedTimer : ""
+                }`}
+                onClick={() => setSelectedTimer("off")}
+              >
                 OFF
               </div>
-              <div className={`${styles.timer} ${selectedTimer === '5sec' ? styles.selectedTimer : ''}`} onClick={() => setSelectedTimer('5sec')}>
+              <div
+                className={`${styles.timer} ${
+                  selectedTimer === "5sec" ? styles.selectedTimer : ""
+                }`}
+                onClick={() => setSelectedTimer("5sec")}
+              >
                 5 sec
               </div>
-              <div className={`${styles.timer} ${selectedTimer === '10sec' ? styles.selectedTimer : ''}`} onClick={() => setSelectedTimer('10sec')}>
+              <div
+                className={`${styles.timer} ${
+                  selectedTimer === "10sec" ? styles.selectedTimer : ""
+                }`}
+                onClick={() => setSelectedTimer("10sec")}
+              >
                 10 sec
               </div>
             </div>
           )}
         </div>
         <div className={styles.actions}>
-          <button onClick={onCancel} className={styles.cancelButton}>Cancel</button>
-          <button onClick={handleSubmit} className={styles.createButton}>Submit</button>
+          <button onClick={onCancel} className={styles.cancelButton}>
+            Cancel
+          </button>
+          <button onClick={handleSubmit} className={styles.createButton}>
+            Submit
+          </button>
         </div>
       </div>
       <ToastContainer />
     </div>
   );
 }
-
