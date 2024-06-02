@@ -214,7 +214,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
-  margin-right: 4rem;
+  margin-right: 1rem;
 }
 .timerTitle{
   font-size: 20px;
@@ -247,8 +247,8 @@
   display: flex;
   justify-content: space-between;
   margin-top: 1rem;
-  margin-left: 6.5rem;
-  margin-right: 4rem;
+  margin-left: 7rem;
+  margin-right: 3rem;
 }
 .actions button{
   border-radius: 10px;
@@ -280,7 +280,7 @@
 .deletebtn{
   width: 25px;
   height: 25px;
-  margin-left: 1rem;
+  margin-left: 5px;
 }
 
 .selectedTimer {
