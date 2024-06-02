@@ -51,7 +51,7 @@
     line-height: 30px;
     font-family: "Poppins";
 }
-.authButton button:hover{
-    box-shadow: 0px 0px 50px 0px rgba(0, 25, 255, 0.24);
-}
 
+.authButton button.active {
+  box-shadow: 0px 0px 50px 0px rgba(0, 25, 255, 0.24);
+}

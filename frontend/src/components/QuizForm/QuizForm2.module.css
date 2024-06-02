@@ -9,10 +9,10 @@
 
 .container {
   background-color: #ffffff;
-  width: 900px;
-  height: 700px;
+  width: 58rem;
+  height: 40rem;
   border-radius: 10px;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
 }
@@ -30,6 +30,7 @@
   font-family: 'Poppins';
   font-weight: 500;
   line-height: 30px;
+  margin-right: 3rem;
 }
 .slide{
   display: flex;
@@ -56,7 +57,7 @@
   width: 15px;
   height: 15px;
   position: absolute;
-  top: 15%;
+  top: 13.8%;
   cursor: pointer;
 }
 
@@ -68,20 +69,27 @@
 }
 
 .questionInput{
-  width: 670px;
   border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 15, 0, 0.25);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 53rem; 
   height: 50px;
   background-color: white;
-  width: 100%;
-  box-shadow: 0px 0px 10px 0px rgba(0, 15, 0, 0.25);
-  padding: 0.5rem;
+  padding: 1rem;
   margin-bottom: 1rem;
+  font-family: 'Poppins';
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
 }
+
 .optionType{
   display: flex;
-  justify-self: start;
-  align-items: start;
+  box-sizing: border-box;
   width: 100%;
+  max-width: 53rem;
+
 }
 
 .optionLabel{
@@ -89,25 +97,76 @@
   font-family: 'Poppins';
   font-weight: 500;
   color: #9F9F9F;
-  width: 24%;
+  width: 23%;
 }
 .optionButtons{
   display: flex;
   flex-direction: row;
+  width: 100%;
+}
+.optionButtons label{
   font-family: 'Poppins';
   font-weight: 500;
   color: #9F9F9F;
-  width: 100%;
+  cursor: pointer;
 }
-.optionButtons input{
+
+.radioinput {
+  appearance: none;
   width: 25px;
   height: 25px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  background-color: #fff;
+  margin-right: 5px;
+  cursor: pointer;
 }
-.answerButton{
+
+.radioinput:checked {
+  background-color: #353434;
+  border: 2px solid #9F9F9F;
+  border-color: #9F9F9F;
+}
+
+.radioinput:focus {
+  outline: none;
+}
+
+.answers{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.answerButton {
+  appearance: none;
   width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  background-color: #fff;
+  margin-right: 10px;
+  cursor: pointer;
 }
+
+.answerButton:checked {
+  background-color: #60B84B;
+  border-color: #60B84B;
+}
+.inputContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .answerText {
-  margin-bottom: 1.3rem;
+  margin-bottom: 1rem;
   padding: 0.3rem;
   border: none;
   width: 300px;
@@ -121,10 +180,13 @@
   font-weight: 500;
   line-height: 30px;
 }
-.addOptionButton{
+
+.addOptionButton {
+  border: none;
   margin-left: 6.5rem;
   padding: 0.3rem;
   width: 300px;
+  height: 50px;
   border-radius: 10px;
   background-color: white;
   box-shadow: 0px 0px 10px 0px rgba(0, 15, 0, 0.25);
@@ -132,22 +194,27 @@
   font-size: 20px;
   font-family: 'Poppins';
   font-weight: 500;
+  line-height: 30px;
+  box-sizing: border-box;
+  max-width: 500px;
+  max-height: 60px;
 }
 
-.optionSelected {
-  background-color: #10b981;
+.optionInputSelected {
+  background-color: #60B84B;
   color: #ffffff;
 }
 
 .optionInputSelected {
-  background-color: #10b981;
+  background-color: #60B84B;
   color: #ffffff;
 }
 
 .timerOptions {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.7rem;
+  margin-right: 4rem;
 }
 .timerTitle{
   font-size: 20px;
@@ -178,17 +245,19 @@
 
 .actions {
   display: flex;
-  justify-content: space-evenly;
-  margin-top: 2rem;
+  justify-content: space-between;
+  margin-top: 1rem;
+  margin-left: 6.5rem;
+  margin-right: 4rem;
 }
 .actions button{
-  width: 280px;
-  height: 45px;
   border-radius: 10px;
   font-family: 'Poppins';
   font-weight: 600;
   font-size: 20px;
   line-height: 30px;
+  width: 300px;
+  height: 50px;
 }
 
 .cancelButton {
@@ -198,7 +267,7 @@
 }
 
 .createButton {
-  background-color: #10b981;
+  background-color: #60B84B;
   color: #ffffff;
 }
 
@@ -207,20 +276,22 @@
   margin-top: 1.5rem;
   justify-content: space-between;
 }
-.answers{
-  display: flex;
-  flex-direction: row;
-}
 
 .deletebtn{
   width: 25px;
   height: 25px;
-  margin-left: 20px;
+  margin-left: 1rem;
 }
-/* .correctAnswer {
-  background-color: green;
-} */
 
 .selectedTimer {
   background-color: red;
+  color: white;
+}
+
+.customToast {
+  width: 400px;
+  margin-right: 20px;
+  height: 100px; 
+  white-space: initial;
+  word-break: break-word;
 }

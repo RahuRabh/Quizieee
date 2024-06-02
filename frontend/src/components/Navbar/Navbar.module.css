@@ -32,8 +32,7 @@
 .navbar li {
   width: 70%;
   border-radius: 10px;
-  transition: box-shadow 0.3s ease;
-  padding: 20px;
+  padding: 13px;
   text-align: center;
   font-family: "Poppins";
   font-weight: 600;
@@ -43,7 +42,10 @@
   cursor: pointer;
 }
 
-.navbar li:hover {
+.logOut :hover {
+  box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.12);
+}
+.active {
   box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.12);
 }
 .navbar li a {
@@ -62,12 +64,10 @@
   font-size: 1.25rem;
   line-height: 1.9rem;
   font-weight: 700;
-  text-align: center;
   border: none;
   background-color: white;
-  width: 5rem;
-  height: 2.5rem;
-  margin-left: 25%;
-  margin-bottom: 30px;
+  width: 80%;
+  margin-left: 1rem;
+  margin-bottom: 20px;
   cursor: pointer;
 }

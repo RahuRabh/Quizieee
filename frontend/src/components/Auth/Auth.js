@@ -10,8 +10,8 @@ export default function Auth() {
       <div className={styles.authContainer}>
         <h1 className={styles.title}>QUIZZIE</h1>
         <div className={styles.authButton}>
-          <button onClick={() => setcurrentView("register")}>Sign Up</button>
-          <button onClick={() => setcurrentView("login")}>Log In</button>
+          <button className={currentView === "register" ? styles.active : ""} onClick={() => setcurrentView("register")}>Sign Up</button>
+          <button className={currentView === "login" ? styles.active : ""} onClick={() => setcurrentView("login")}>Log In</button>
         </div>
         {currentView === "register" && <Register setCurrentView={setcurrentView} />}
         {currentView === "login" && <Login />}

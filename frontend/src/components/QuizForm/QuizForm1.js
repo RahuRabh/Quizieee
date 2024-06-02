@@ -1,18 +1,45 @@
 import React, { useState } from "react";
 import styles from "./QuizForm1.module.css";
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 export default function QuizForm1({ onSubmit, onCancel }) {
   const [quizName, setQuizName] = useState("");
   const [quizType, setQuizType] = useState("");
   const [selectedQuizType, setSelectedQuizType] = useState("");
 
-  const handleSubmit = () => {
-    onSubmit(quizName, quizType);
+  const validate = () => {
+    let isValid = true;
+
+    if (!quizName.trim()) {
+      toast.error("Quiz name is required.", {
+        className: styles.customToast,
+      });
+      isValid = false;
+    }
+
+    if (!quizType) {
+      toast.error("Quiz type is required.", {
+        className: styles.customToast,
+      });
+      isValid = false;
+    }
+
+
+    return isValid;
   };
+
+  const handleSubmit = () => {
+    if (validate()) {
+      onSubmit(quizName, quizType);
+    }
+  };
+
   const handleQuizTypeClick = (type) => {
     setQuizType(type);
     setSelectedQuizType(type);
   };
+
   return (
     <div className={styles.overlay}>
       <div className={styles.container}>
@@ -64,6 +91,7 @@ export default function QuizForm1({ onSubmit, onCancel }) {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

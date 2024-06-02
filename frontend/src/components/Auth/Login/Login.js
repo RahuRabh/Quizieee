@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
+
 import styles from './Login.module.css';
+
 import { loginUser } from "../../../apis/auth"
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const navigate = useNavigate();
   const methods = useForm();
-  const [errorMessage, seterrorMessage] = useState()
-  const { handleSubmit, register, setError ,formState: { errors } } = methods;
+  const [errorMessage, setErrorMessage] = useState()
+  const { handleSubmit, register ,formState: { errors } } = methods;
 
   const onSubmit = async (data) => {
     try {
@@ -16,7 +18,7 @@ export default function Login() {
       localStorage.setItem("token", response?.token)
       localStorage.setItem("userId", response?.userId)
       if(response.errorMessage){
-        seterrorMessage(response.errorMessage)
+        setErrorMessage(response.errorMessage)
       }
       else{
         navigate("/home/dashboard")
@@ -36,7 +38,7 @@ export default function Login() {
             <input
               id="email"
               className={errors.email ? styles.error : ''}
-              placeholder={errors.email ? errors.email.message : ''}
+              placeholder={errors.email ? errors.email.message :  ''}
               {...register('email', {
                 required: 'Email is required',
                 pattern: { value: /^\S+@\S+$/i, message: 'Invalid email address' }

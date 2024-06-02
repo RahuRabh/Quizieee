@@ -1,7 +1,11 @@
 import React from "react";
+
 import styles from "./Navbar.module.css";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate, useLocation } from "react-router-dom";
+
 export default function Navbar({ onQuizClick }) {
+  const location = useLocation()
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.clear();
@@ -18,13 +22,17 @@ export default function Navbar({ onQuizClick }) {
     onQuizClick();
   }
 
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
+
   return (
     <nav className={styles.navbar}>
       <h1 className={styles.title}>QUIZZE</h1>
       <div>
         <ul>
-          <li onClick={handleDashboard}>Dashboard</li>
-          <li onClick={handleAnalytics}>Analytics</li>
+          <li onClick={handleDashboard} className={isActive("/home/dashboard") ? styles.active : ""}>Dashboard</li>
+          <li onClick={handleAnalytics} className={isActive("/home/analytics") ? styles.active : ""}>Analytics</li>
           <li onClick={handleQuizClick}>Create Quiz</li>
         </ul>
       </div>
