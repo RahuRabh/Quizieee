@@ -70,7 +70,7 @@ export default function QuestionAnalysis() {
                   <div className={styles.grid}>
                     <div className={styles.statBox}>
                        <p className={styles.statNumber}>{question.attempts}</p>
-                       <p className={styles.statLabel}>people Attempted the question</p>
+                       <p className={styles.statLabel}>people Attempted question</p>
                      </div>
                     <div className={styles.statBox}>
                        <p className={styles.statNumber}>{question.correct}</p>
