@@ -28,6 +28,7 @@ export default function Dashboard() {
 
   // Sort quizAnalytics in decreasing order based on impressions
   const sortedQuizAnalytics = quizAnalytics.sort((a, b) => b.impression - a.impression);
+  console.log(sortedQuizAnalytics);
 
   return (
     <div className={styles.main}>
@@ -51,7 +52,7 @@ export default function Dashboard() {
       <div className={styles.content}>
         <h2>Trending Quizzes</h2>
         <div className={styles.quizList}>
-          {sortedQuizAnalytics.map((quiz, index) => (
+          {/* {sortedQuizAnalytics.map((quiz, index) => (
             <div key={index} className={styles.tquiz}>
               <div className={styles.container}>
               <div>
@@ -72,7 +73,33 @@ export default function Dashboard() {
                 <p className={styles.date}>{convertDate(quiz.createdAt)}</p>
               </div>
             </div>
-          ))}
+          ))} */}
+          {sortedQuizAnalytics
+  .filter(quiz => quiz.impression >= 10) // Filter quizzes with impressions 10 and above
+  .map((quiz, index) => (
+    <div key={index} className={styles.tquiz}>
+      <div className={styles.container}>
+        <div>
+          <p className={styles.name}>{quiz.name}</p>
+        </div>
+        <div className={styles.orange}>
+          <div>
+            <p className={styles.eye}>
+              {formatNumber(quiz.impression)}
+            </p>
+          </div>
+          <div>
+            <img className={styles.eyeIcon} alt="eye" src={eye} />
+          </div>
+        </div>
+      </div>
+      <div>
+        <p className={styles.date}>{convertDate(quiz.createdAt)}</p>
+      </div>
+    </div>
+  ))}
+
+
         </div>
       </div>
     </div>

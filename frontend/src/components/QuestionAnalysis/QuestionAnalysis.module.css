@@ -92,6 +92,7 @@
     color: #474444;
   }
   .Hrline{
+    box-sizing: border-box;
     width: 100%;
     border: 2px solid #D7D7D7;
     margin-top: 20px;

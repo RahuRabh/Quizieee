@@ -17,6 +17,7 @@ export default function Quiz() {
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(null);
   const timerRef = useRef(null);
+  const hasFetchedQuiz = useRef(false); // Ref to track if quiz data has been fetched
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -24,10 +25,15 @@ export default function Quiz() {
         const response = await getQuizById(id);
         setQuiz(response);
       } catch (error) {
+        alert("Error fetching quiz");
         console.error("Error fetching quiz:", error);
       }
     };
-    fetchQuiz();
+
+    if (!hasFetchedQuiz.current) {
+      fetchQuiz();
+      hasFetchedQuiz.current = true; // Mark quiz data as fetched
+    }
   }, [id]);
 
   const handleOptionClick = async (index) => {
